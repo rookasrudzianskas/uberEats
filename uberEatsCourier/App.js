@@ -3,16 +3,18 @@ import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-n
 import orders from './src/assets/data/orders.json';
 import {Entypo} from "@expo/vector-icons";
 import OrderItem from "./src/components/OrderItem";
+import OrdersScreen from "./src/screens/OrdersScreen";
 
 export default function App() {
 
     return (
         <View className="mt-10 mx-4">
-            <FlatList data={orders}
-                      keyExtractor={item => item.id}
-                      renderItem={({item}) => (
-                <OrderItem order={item} />
-            )} />
+            {/*<FlatList data={orders}*/}
+            {/*          keyExtractor={item => item.id}*/}
+            {/*          renderItem={({item}) => (*/}
+            {/*    <OrderItem order={item} />*/}
+            {/*)} />*/}
+            <OrdersScreen />
             <StatusBar style="auto" />
         </View>
     );
