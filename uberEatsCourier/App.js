@@ -9,7 +9,7 @@ export default function App() {
 
     return (
         <View className="mt-10 mx-4">
-            <OrderItem />
+            <OrderItem order={order} />
             <StatusBar style="auto" />
         </View>
     );

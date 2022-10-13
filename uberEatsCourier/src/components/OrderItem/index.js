@@ -1,10 +1,8 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Entypo} from "@expo/vector-icons";
-import orders from "../../assets/data/orders.json";
 
-const OrderItem = () => {
-    const order = orders[0];
+const OrderItem = ({order}) => {
 
     return (
         <TouchableOpacity activeOpacity={0.7} className="flex-row items-center border border-[2px] border-green-500 rounded-lg">
