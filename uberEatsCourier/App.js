@@ -4,6 +4,7 @@ import orders from './src/assets/data/orders.json';
 import {Entypo} from "@expo/vector-icons";
 import OrderItem from "./src/components/OrderItem";
 import OrdersScreen from "./src/screens/OrdersScreen";
+import OrderDelivery from "./src/screens/OrderDelivery";
 
 export default function App() {
 
@@ -14,7 +15,8 @@ export default function App() {
             {/*          renderItem={({item}) => (*/}
             {/*    <OrderItem order={item} />*/}
             {/*)} />*/}
-            <OrdersScreen />
+            {/*<OrdersScreen />*/}
+            <OrderDelivery />
             <StatusBar style="auto" />
         </View>
     );
