@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import orders from './src/assets/data/orders.json';
+import {Entypo} from "@expo/vector-icons";
 
 export default function App() {
     const order = orders[0];
@@ -18,7 +19,7 @@ export default function App() {
                     <Text>{order?.User?.address}</Text>
                 </View>
                 <View>
-                    {/*<Entypo name="check" size={30} color="black" />*/}
+                    <Entypo name="check" size={30} color="black" />
                 </View>
             </View>
             <StatusBar style="auto" />
