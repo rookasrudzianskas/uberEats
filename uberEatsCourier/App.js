@@ -8,7 +8,7 @@ import OrdersScreen from "./src/screens/OrdersScreen";
 export default function App() {
 
     return (
-        <View className="mt-10 mx-4">
+        <View className="">
             {/*<FlatList data={orders}*/}
             {/*          keyExtractor={item => item.id}*/}
             {/*          renderItem={({item}) => (*/}
