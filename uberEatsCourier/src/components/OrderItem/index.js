@@ -5,7 +5,7 @@ import {Entypo} from "@expo/vector-icons";
 const OrderItem = ({order}) => {
 
     return (
-        <TouchableOpacity activeOpacity={0.7} className="flex-row items-center border border-[2px] border-green-500 rounded-lg">
+        <TouchableOpacity activeOpacity={0.7} className="flex-row items-center border border-[2px] my-2 border-green-500 rounded-lg">
             <View className="flex-1 flex-row">
                 <Image source={{uri: order?.Restaurant?.image}} style={{}} className="w-20 m-1 rounded-lg" />
                 <View className="px-3 py-3">

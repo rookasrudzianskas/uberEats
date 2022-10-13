@@ -5,11 +5,12 @@ import {Entypo} from "@expo/vector-icons";
 import OrderItem from "./src/components/OrderItem";
 
 export default function App() {
-    const order = orders[0];
 
     return (
         <View className="mt-10 mx-4">
-            <OrderItem order={order} />
+            <OrderItem order={orders[0]} />
+            <OrderItem order={orders[1]} />
+            <OrderItem order={orders[2]} />
             <StatusBar style="auto" />
         </View>
     );
