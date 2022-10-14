@@ -2,10 +2,11 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Text, View, StyleSheet, FlatList, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
 import BottomSheet from "@gorhom/bottom-sheet";
 import orders from "../../assets/data/orders.json";
-import {Entypo, FontAwesome, Ionicons} from "@expo/vector-icons";
+import {AntDesign, Entypo, FontAwesome, Ionicons} from "@expo/vector-icons";
 import MapView, {Marker} from "react-native-maps";
 import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
+import {useNavigation} from "@react-navigation/native";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
@@ -26,6 +27,7 @@ const deliveryLocation = {
 };
 
 const OrderDelivery = () => {
+    const navigation = useNavigation();
     const bottomSheetRef = useRef(null);
     const mapRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
@@ -82,9 +84,12 @@ const OrderDelivery = () => {
             setDeliveryStatus(ORDER_STATUSES.ACCEPTED);
         }
         if(deliveryStatus === ORDER_STATUSES.ACCEPTED) {
+            bottomSheetRef.current?.collapse();
             setDeliveryStatus(ORDER_STATUSES.PICKED_UP);
         }
         if(deliveryStatus === ORDER_STATUSES.PICKED_UP) {
+            bottomSheetRef.current?.collapse();
+            navigation.goBack();
             console.warn('Order Delivered');
         }
     }
@@ -173,7 +178,7 @@ const OrderDelivery = () => {
                     </Marker>
                 ))}
             </MapView>
-            <BottomSheet handleIndicatorStyle={{backgroundColor: 'grey', width: 100}} ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
+            <BottomSheet className="relative" handleIndicatorStyle={{backgroundColor: 'grey', width: 100}} ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
                 <View className="">
                     <View className="flex-row items-center justify-center mt-4 mb-6 mx-4 space-x-1">
                         <Text className="text-[19px] text-gray-900 font-[500]">{totalMinutes.toFixed(0) || 'Loading ...'} min</Text>
@@ -209,6 +214,10 @@ const OrderDelivery = () => {
                         <Text className="text-lg text-white font-bold">{renderButtonTitle()}</Text>
                     </TouchableOpacity>
                 </View>
+
+                <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.7} className="absolute top-1 left-4">
+                    <AntDesign name="arrowleft" size={24} color="black" />
+                </TouchableOpacity>
             </BottomSheet>
         </View>
     );
