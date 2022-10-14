@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {DataStore} from "aws-amplify";
 import {useAuthContext} from "../../contexts/AuthContext";
 import {useNavigation} from "@react-navigation/native";
-import {Courier, TransportationModes as TrasportationModes} from "../../models";
+import {Courier, TransportationModes, TransportationModes as TrasportationModes} from "../../models";
 import {AntDesign, FontAwesome} from "@expo/vector-icons";
 
 const Profile = () => {
@@ -63,10 +63,10 @@ const Profile = () => {
       />
 
         <View className="flex-row items-center justify-between">
-            <TouchableOpacity activeOpacity={0.7} className=" bg-blue-500 border border-blue-600 border-[2px] flex-1 items-center py-1 mx-3 rounded-lg">
+            <TouchableOpacity onPress={() => setTransportationMode(TransportationModes.BICYCLING)} activeOpacity={0.7} className={`${transportationMode === TrasportationModes.DRIVING ? 'bg-gray-200' : ' bg-blue-500'} border border-blue-600 border-[2px] flex-1 items-center py-1 mx-3 rounded-lg`}>
                 <AntDesign name="car" size={24} color="white" />
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.7} className="bg-yellow-500 border border-yellow-600 border-[2px] flex-1 items-center py-1 mx-3 rounded-lg">
+            <TouchableOpacity onPress={() => setTransportationMode(TransportationModes.DRIVING)} activeOpacity={0.7} className={`${transportationMode === TrasportationModes.BICYCLING ? 'bg-gray-200' : 'bg-yellow-500'}  border border-yellow-600 border-[2px] flex-1 items-center py-1 mx-3 rounded-lg`}>
                 <FontAwesome name="bicycle" size={24} color="white" />
             </TouchableOpacity>
         </View>
