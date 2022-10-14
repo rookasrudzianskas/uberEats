@@ -1,14 +1,25 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAuthContext } from "./AuthContext";
 import {DataStore} from "aws-amplify";
-import {Order} from "../models";
+import {Order, OrderDish, User} from "../models";
 
 const OrderContext = createContext({});
 
 const OrderContextProvider = ({ children }) => {
     const { dbUser } = useAuthContext();
     const { dbCourier } = useAuthContext();
-    const [activeOrder, setActiveOrder] = useState(null);
+    const [order, setOrder] = useState(null);
+
+    const fetchOrder = async (id) => {
+        if(!id) {
+            setOrder(null);
+            return;
+        };
+        const fetchedOrder = await DataStore.query(Order, id);
+        fetchedOrder.user = await DataStore.query(User, fetchedOrder.userID);
+        fetchedOrder.dishes = await DataStore.query(OrderDish, (od) => od.orderID("eq", fetchedOrder.id));
+        setOrder(fetchedOrder);
+    }
 
     const acceptOrder = (order) => {
         // update the order, and change the status and assign the driver to the order
@@ -18,10 +29,10 @@ const OrderContextProvider = ({ children }) => {
                 updated.Courier = dbCourier;
             })
         ).then(setActiveOrder);
-    }
+    };
 
     return (
-        <OrderContext.Provider value={{ acceptOrder }}>
+        <OrderContext.Provider value={{ acceptOrder, order, fetchOrder }}>
             {children}
         </OrderContext.Provider>
     );

@@ -20,10 +20,8 @@ const ORDER_STATUSES = {
 }
 
 const OrderDelivery = () => {
-    // const { activeOrder } = useOrderContext();
-    const [order, setOrder] = useState(null);
-    const [user, setUser] = useState(null);
-    const [dishItems, setDishItems] = useState([]);
+    const { order, acceptOrder, fetchOrder } = useOrderContext();
+
     const navigation = useNavigation();
     const bottomSheetRef = useRef(null);
     const mapRef = useRef(null);
@@ -33,20 +31,12 @@ const OrderDelivery = () => {
     const [totalKm, setTotalKm] = useState(0);
     const [deliveryStatus, setDeliveryStatus] = useState(ORDER_STATUSES.READY_FOR_PICKUP);
     const [isDriverClose, setIsDriverClose] = useState(false);
-    const { acceptOrder } = useOrderContext();
     const route = useRoute();
     const id = route.params?.id;
 
     useEffect(() => {
-        if(!id) return;
-        DataStore.query(Order, id).then(setOrder);
+        fetchOrder(id);
     }, [id]);
-
-    useEffect(() => {
-        if(!order) return;
-        DataStore.query(User, order.userID).then(setUser);
-        DataStore.query(OrderDish, (od) => od.orderID("eq", order.id)).then(setDishItems);
-    }, [order]);
 
     useEffect(() => {
         (async () => {
@@ -80,11 +70,11 @@ const OrderDelivery = () => {
         longitude: order?.Restaurant?.lng,
     };
     const deliveryLocation = {
-        latitude: user?.lat,
-        longitude: user?.lng,
+        latitude: order?.user?.lat,
+        longitude: order?.user?.lng,
     };
 
-    if(!driverLocation || !order || !user) {
+    if(!driverLocation || !order) {
         return (
             <View className="bg-gray-100 h-screen justify-center items-center">
                 <ActivityIndicator />
@@ -178,8 +168,8 @@ const OrderDelivery = () => {
                 </Marker>
                 <Marker
                     coordinate={deliveryLocation}
-                    title={user?.name}
-                    description={user?.address}
+                    title={order?.user?.name}
+                    description={order?.user?.address}
                 >
                     <TouchableOpacity activeOpacity={0.7} className="bg-blue-500 p-1 rounded-full">
                         <Entypo name="home" size={22} color="white" />
@@ -217,7 +207,7 @@ const OrderDelivery = () => {
                             </View>
                             <View className="flex-row items-center space-x-3 pb-4">
                                 <FontAwesome name="map-marker" size={24} color="gray" />
-                                <Text className="text-[20px] text-gray-600 font-[400]">{user?.address}</Text>
+                                <Text className="text-[20px] text-gray-600 font-[400]">{order?.user?.address}</Text>
                             </View>
                             <View className="border-b border-gray-300 border-[1px]"/>
 
