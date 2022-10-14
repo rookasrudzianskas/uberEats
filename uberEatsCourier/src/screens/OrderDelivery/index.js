@@ -56,8 +56,9 @@ const OrderDelivery = () => {
                         longitude: order?.User?.lng,
                     }}
                     apikey={GOOGLE_MAPS_APIKEY}
-                    strokeWidth={10}
-                    strokeColor="black"
+                    waypoints={[{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}]}
+                    strokeWidth={5}
+                    strokeColor="#1aa260"
                 />
                 <Marker
                     coordinate={{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}}
