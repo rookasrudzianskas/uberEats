@@ -23,7 +23,7 @@ const Navigation = () => {
             ) : (
                 <Stack.Screen options={{
                     headerShown: false,
-                }} name="ProfileScreen" component={ProfileScreen} />
+                }} name="Profile" component={ProfileScreen} />
             )}
         </Stack.Navigator>
     );
