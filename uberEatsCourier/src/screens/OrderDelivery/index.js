@@ -2,7 +2,6 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Text, View, StyleSheet, FlatList, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
 import BottomSheet from "@gorhom/bottom-sheet";
 import orders from "../../assets/data/orders.json";
-import OrderItem from "../../components/OrderItem";
 import {Entypo, FontAwesome, Ionicons} from "@expo/vector-icons";
 import MapView, {Marker} from "react-native-maps";
 import * as Location from "expo-location";
