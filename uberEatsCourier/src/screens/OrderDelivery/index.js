@@ -19,7 +19,7 @@ const OrderDelivery = () => {
                         <Ionicons name="basket" size={27} color="green" />
                         <Text className="text-[19px] text-gray-900 font-[500]">3.087 km</Text>
                     </View>
-                    <View className="border-b border-gray-300 border-[2px]"/>
+                    <View className="border-b border-gray-300 mt-5 border-[2px]"/>
                     <View className="mx-4">
                         <Text className="text-2xl text-gray-900 font-[500] mt-8">{order?.Restaurant?.name}</Text>
                         <View className="mt-4 space-y-4">
