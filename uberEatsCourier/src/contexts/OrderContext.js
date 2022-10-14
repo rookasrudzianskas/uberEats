@@ -17,7 +17,7 @@ const OrderContextProvider = ({ children }) => {
             setOrder(null);
             return;
         };
-        DataStore.query(Order, id).then(setOrder);
+        const fetchedOrder = await DataStore.query(Order, id);
         DataStore.query(User, fetchedOrder.userID).then(setUser);
         DataStore.query(OrderDish, (od) => od.orderID("eq", fetchedOrder.id)).then(setDishes);
         setOrder(fetchedOrder);
