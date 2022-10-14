@@ -16,6 +16,7 @@ const OrderDelivery = () => {
     const [driverLocation, setDriverLocation] = useState(null);
     const [totalMinutes, setTotalMinutes] = useState(0);
     const [totalKm, setTotalKm] = useState(0);
+    const [activeOrder, setActiveOrder] = useState(null);
 
     useEffect(() => {
         (async () => {
@@ -50,6 +51,10 @@ const OrderDelivery = () => {
                 <ActivityIndicator />
             </View>
         )
+    }
+
+    const onButtonPressed = () => {
+
     }
 
     return (
