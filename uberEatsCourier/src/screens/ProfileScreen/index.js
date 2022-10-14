@@ -28,9 +28,7 @@ const Profile = () => {
       const courier = await DataStore.save(
           Courier.copyOf(dbCourier, updated => {
               updated.name = name,
-              updated.address = address,
-              updated.lat = parseFloat(lat),
-              updated.lng = parseFloat(lng)
+              updated.transportationMode = transportationMode
           }));
       setDbCourier(courier);
       navigation.goBack();
@@ -41,10 +39,10 @@ const Profile = () => {
       try {
           const courier = await DataStore.save(new Courier({
               name,
-              address,
-              lat: parseFloat(lat),
-              lng: parseFloat(lng),
+              // lat: 0,
+              // lng: 0,
               sub: sub,
+              transportationMode: transportationMode,
           }));
           setDbCourier(courier);
       } catch (e) {
