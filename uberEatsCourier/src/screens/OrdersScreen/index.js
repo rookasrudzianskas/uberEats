@@ -10,41 +10,11 @@ import * as Location from 'expo-location';
 const OrdersScreen = () => {
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
-    const [driverLocation, setDriverLocation] = useState(null);
-
-    useEffect(() => {
-        (async () => {
-            let {status} = await Location.requestForegroundPermissionsAsync();
-            if (!status === 'granted') {
-                Alert.alert('Permission to access location was denied');
-                return;
-            }
-            let location = await Location.getCurrentPositionAsync();
-            setDriverLocation({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-            });
-        })();
-    }, []);
-
-    if(!driverLocation) {
-        return (
-            <View className="bg-gray-100 h-screen justify-center items-center">
-                <ActivityIndicator />
-            </View>
-        )
-    }
 
     return (
         <View className="bg-gray-100 h-screen">
             {/* showsUserLocation followsUserLocation TODO can be added as well. */}
             <MapView
-                initialRegion={{
-                    latitude: driverLocation?.latitude,
-                    longitude: driverLocation?.longitude,
-                    latitudeDelta: 0.07,
-                    longitudeDelta: 0.07,
-                }}
                 style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
                 {orders.map((order, index) => (
                     <Marker key={index} title={order?.Restaurant?.name}
