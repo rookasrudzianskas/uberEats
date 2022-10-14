@@ -1,12 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import OrderDelivery from "./src/screens/OrderDelivery";
 import { NavigationContainer } from '@react-navigation/native';
 import Navigation from "./src/navigation";
 import "react-native-gesture-handler";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 
-export default function App() {
+const App = () => {
 
     return (
         <GestureHandlerRootView style={{flex: 1}}>
@@ -18,3 +16,4 @@ export default function App() {
     );
 }
 
+export default App;
