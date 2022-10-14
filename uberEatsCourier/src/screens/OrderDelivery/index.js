@@ -15,7 +15,7 @@ const ORDER_STATUSES = {
     ACCEPTED: "ACCEPTED",
     PICKED_UP: 'PICKED_UP',
 }
-    const order = orders[0];
+const order = orders[0];
 
 const restaurantLocation = {
     latitude: order?.Restaurant?.lat,
