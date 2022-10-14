@@ -24,7 +24,7 @@ const OrderContextProvider = ({ children }) => {
         setOrder(fetchedOrder);
     }
 
-    const acceptOrder = (order) => {
+    const acceptOrder = () => {
         // update the order, and change the status and assign the driver to the order
         DataStore.save(
             Order.copyOf(order, (updated) => {

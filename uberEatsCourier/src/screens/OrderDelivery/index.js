@@ -92,7 +92,7 @@ const OrderDelivery = () => {
                 longitudeDelta: 0.01,
             });
             setDeliveryStatus(ORDER_STATUSES.ACCEPTED);
-            acceptOrder(order);
+            acceptOrder();
         }
         if(deliveryStatus === ORDER_STATUSES.ACCEPTED) {
             bottomSheetRef.current?.collapse();
