@@ -6,6 +6,7 @@ import {GestureHandlerRootView} from "react-native-gesture-handler";
 import { Amplify } from 'aws-amplify';
 import awsconfig from './src/aws-exports';
 import {withAuthenticator} from "aws-amplify-react-native/src/Auth";
+import AuthContextProvider from "./src/contexts/AuthContext";
 
 Amplify.configure({
     ...awsconfig,
@@ -18,7 +19,9 @@ const App = () => {
     return (
         <GestureHandlerRootView style={{flex: 1}}>
             <NavigationContainer>
-                <Navigation />
+                <AuthContextProvider>
+                    <Navigation />
+                </AuthContextProvider>
                 <StatusBar style="auto" />
             </NavigationContainer>
         </GestureHandlerRootView>

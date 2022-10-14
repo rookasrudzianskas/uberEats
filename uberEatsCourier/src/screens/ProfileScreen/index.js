@@ -7,15 +7,15 @@ import {useNavigation} from "@react-navigation/native";
 import {Courier} from "../../models";
 
 const Profile = () => {
-  const {sub, setDbUser, dbUser } = useAuthContext();
-  const [name, setName] = useState(dbUser?.name || '');
-  const [address, setAddress] = useState(dbUser?.address || '');
-  const [lat, setLat] = useState(dbUser?.lat + "" || '0');
-  const [lng, setLng] = useState(dbUser?.lng + "" || '0');
+  const { dbCourier, sub, setDbCourier } = useAuthContext();
+  const [name, setName] = useState(dbCourier?.name || '');
+  const [address, setAddress] = useState(dbCourier?.address || '');
+  const [lat, setLat] = useState(dbCourier?.lat + "" || '0');
+  const [lng, setLng] = useState(dbCourier?.lng + "" || '0');
   const navigation = useNavigation();
 
   const onSave = async () => {
-      if(dbUser) {
+      if(dbCourier) {
           await updateUser();
       } else {
           await createUser();
@@ -25,13 +25,13 @@ const Profile = () => {
   const updateUser = async () => {
       // update user
       const user = await DataStore.save(
-          Courier.copyOf(dbUser, updated => {
+          Courier.copyOf(dbCourier, updated => {
               updated.name = name,
               updated.address = address,
               updated.lat = parseFloat(lat),
               updated.lng = parseFloat(lng)
           }));
-      setDbUser(user);
+      setDbCourier(user);
       navigation.goBack();
       // console.warn('user updated', user);
   }
@@ -46,7 +46,7 @@ const Profile = () => {
               lng: parseFloat(lng),
               sub: sub,
           }));
-          setDbUser(user);
+          setDbCourier(user);
           // console.warn("User saved successfully", user);
       } catch (e) {
           Alert.alert('Error', 'Whoops! Something went wrong.');
