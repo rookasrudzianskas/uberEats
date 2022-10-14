@@ -137,7 +137,7 @@ const OrderDelivery = () => {
                     waypoints={deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP ? [restaurantLocation] : []}
                     onReady={(result) => {
                         if(result.distance <= 0.1) {
-                            setIsDriverClose(true);
+                            setIsDriverClose(result.distance <= 0.1); // should be good
                         }
                         setTotalMinutes(result.duration);
                         setTotalKm(result.distance);
