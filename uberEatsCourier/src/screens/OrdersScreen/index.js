@@ -1,19 +1,43 @@
-import React, {useMemo, useRef} from 'react';
-import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {Text, View, StyleSheet, FlatList, TouchableOpacity, Alert} from 'react-native';
 import BottomSheet from "@gorhom/bottom-sheet";
 import orders from '../../assets/data/orders.json';
 import OrderItem from "../../components/OrderItem";
 import MapView, {Marker} from "react-native-maps";
 import {Entypo} from "@expo/vector-icons";
+import * as Location from 'expo-location';
 
 const OrdersScreen = () => {
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
+    const [driverLocation, setDriverLocation] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            let {status} = await Location.requestForegroundPermissionsAsync();
+            if (!status === 'granted') {
+                Alert.alert('Permission to access location was denied');
+                return;
+            }
+            let location = await Location.getCurrentPositionAsync();
+            setDriverLocation({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+            });
+        })();
+    }, []);
+
+    console.log(driverLocation);
 
     return (
         <View className="bg-gray-100 h-screen">
             {/* showsUserLocation followsUserLocation TODO can be added as well. */}
-            <MapView style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
+            <MapView
+                // initialRegion={{
+                //     latitude: 37.78825,
+                //     longitude: -122.4324,
+                // }}
+                style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
                 {orders.map((order, index) => (
                     <Marker key={index} title={order?.Restaurant?.name}
                             description={order?.Restaurant?.address} coordinate={{

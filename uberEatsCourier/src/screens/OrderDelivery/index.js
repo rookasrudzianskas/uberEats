@@ -3,7 +3,8 @@ import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import BottomSheet from "@gorhom/bottom-sheet";
 import orders from "../../assets/data/orders.json";
 import OrderItem from "../../components/OrderItem";
-import {FontAwesome, Ionicons} from "@expo/vector-icons";
+import {Entypo, FontAwesome, Ionicons} from "@expo/vector-icons";
+import MapView, {Marker} from "react-native-maps";
 
 const OrderDelivery = () => {
     const bottomSheetRef = useRef(null);
@@ -12,8 +13,23 @@ const OrderDelivery = () => {
 
     return (
         <View className="bg-gray-100 h-screen">
+            <MapView style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
+                {orders.map((order, index) => (
+                    <Marker key={index} title={order?.Restaurant?.name}
+                            description={order?.Restaurant?.address} coordinate={{
+                        // latitude: 37.78825,
+                        // longitude: -122.4324,
+                        latitude: order?.Restaurant?.lat,
+                        longitude: order?.Restaurant?.lng,
+                    }} >
+                        <TouchableOpacity activeOpacity={0.7} className="bg-green-500 p-1 rounded-full">
+                            <Entypo name="shop" size={22} color="white" />
+                        </TouchableOpacity>
+                    </Marker>
+                ))}
+            </MapView>
             <BottomSheet handleIndicatorStyle={{backgroundColor: 'grey', width: 100}} ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
-                <View className="flex-1">
+                <View className="">
                     <View className="flex-row items-center justify-center mt-4 mb-6 mx-4 space-x-1">
                         <Text className="text-[19px] text-gray-900 font-[500]">14 min</Text>
                         <Ionicons name="basket" size={27} color="green" />
@@ -43,7 +59,7 @@ const OrderDelivery = () => {
                     </View>
                 </View>
 
-                <View className="mx-4">
+                <View className="mx-4 mt-80">
                     <TouchableOpacity activeOpacity={0.7} className="mb-10 rounded-lg bg-green-400 w-full py-3 items-center justify-center">
                         <Text className="text-lg text-white font-bold">Accept Order</Text>
                     </TouchableOpacity>
