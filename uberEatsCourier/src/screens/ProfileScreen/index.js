@@ -16,38 +16,36 @@ const Profile = () => {
 
   const onSave = async () => {
       if(dbCourier) {
-          await updateUser();
+          await updateCourier();
       } else {
-          await createUser();
+          await createCourier();
       }
   };
 
-  const updateUser = async () => {
-      // update user
-      const user = await DataStore.save(
+  const updateCourier = async () => {
+      // update courier
+      const courier = await DataStore.save(
           Courier.copyOf(dbCourier, updated => {
               updated.name = name,
               updated.address = address,
               updated.lat = parseFloat(lat),
               updated.lng = parseFloat(lng)
           }));
-      setDbCourier(user);
+      setDbCourier(courier);
       navigation.goBack();
-      // console.warn('user updated', user);
   }
 
-  const createUser = async () => {
+  const createCourier = async () => {
       // save in DataStore here
       try {
-          const user = await DataStore.save(new Courier({
+          const courier = await DataStore.save(new Courier({
               name,
               address,
               lat: parseFloat(lat),
               lng: parseFloat(lng),
               sub: sub,
           }));
-          setDbCourier(user);
-          // console.warn("User saved successfully", user);
+          setDbCourier(courier);
       } catch (e) {
           Alert.alert('Error', 'Whoops! Something went wrong.');
       }
