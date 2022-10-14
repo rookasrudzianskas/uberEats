@@ -73,6 +73,18 @@ const OrderDelivery = () => {
         }
     }
 
+    const renderButtonTitle = () => {
+        if(deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP) {
+            return 'Accept Order';
+        }
+        if(deliveryStatus === ORDER_STATUSES.ACCEPTED) {
+            return 'Pick Up Order';
+        }
+        if(deliveryStatus === ORDER_STATUSES.PICKED_UP) {
+            return 'Drop Off Order';
+        }
+    }
+
     return (
         <View className="bg-gray-100 h-screen">
             <MapView
@@ -165,7 +177,7 @@ const OrderDelivery = () => {
 
                 <View className="mx-4 mt-80">
                     <TouchableOpacity onPress={onButtonPressed} activeOpacity={0.7} className="mb-10 rounded-lg bg-green-400 w-full py-3 items-center justify-center">
-                        <Text className="text-lg text-white font-bold">Accept Order</Text>
+                        <Text className="text-lg text-white font-bold">{renderButtonTitle()}</Text>
                     </TouchableOpacity>
                 </View>
             </BottomSheet>
