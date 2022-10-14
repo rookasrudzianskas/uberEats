@@ -21,7 +21,7 @@ const ORDER_STATUSES = {
 const OrderDelivery = () => {
     const [order, setOrder] = useState(null);
     const [user, setUser] = useState(null);
-    const [dishItems, setDishItems] = useState(null);
+    const [dishItems, setDishItems] = useState([]);
     const navigation = useNavigation();
     const bottomSheetRef = useRef(null);
     const mapRef = useRef(null);
@@ -135,6 +135,8 @@ const OrderDelivery = () => {
         }
         return true;
     }
+
+    // console.log(dishItems)
     return (
         <View className="bg-gray-100 h-screen">
             <MapView
@@ -217,7 +219,8 @@ const OrderDelivery = () => {
 
                             <View className="space-y-1">
                                 {dishItems.map((dish, index) => (
-                                    <Text key={index} className="text-[17px] font-[600] text-gray-500">{dish.name || 'Loading...'} x {dish.quantity || 'x1'}</Text>
+                                    <Text key={index} className="text-[17px] font-[600] text-gray-500">{dish.Dish.name || 'Loading...'} x {dish.Dish.quantity || 'x1'}</Text>
+                                    // <Text>{dish.Dish.name}</Text>
                                 ))}
                             </View>
                         </View>
