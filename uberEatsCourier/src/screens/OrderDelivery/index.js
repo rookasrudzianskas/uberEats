@@ -168,7 +168,7 @@ const OrderDelivery = () => {
                     title={order?.Restaurant?.name}
                     description={order?.Restaurant?.address}
                 >
-                    <TouchableOpacity activeOpacity={0.7} className="bg-red-500 p-1 rounded-full">
+                    <TouchableOpacity activeOpacity={0.7} className="bg-green-500 p-1 rounded-full">
                         <Entypo name="shop" size={22} color="white" />
                     </TouchableOpacity>
                 </Marker>
