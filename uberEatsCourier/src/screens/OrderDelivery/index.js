@@ -129,7 +129,7 @@ const OrderDelivery = () => {
                     origin={driverLocation}
                     destination={deliveryStatus === ORDER_STATUSES.ACCEPTED ? restaurantLocation : deliveryLocation}
                     apikey={GOOGLE_MAPS_APIKEY}
-                    waypoints={deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP ? [{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}] : []}
+                    waypoints={deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP ? [restaurantLocation] : []}
                     onReady={(result) => {
                         if(result.distance <= 0.1) {
                             setIsDriverClose(true);
