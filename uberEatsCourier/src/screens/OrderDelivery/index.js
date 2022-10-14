@@ -13,11 +13,11 @@ import {useOrderContext} from "../../contexts/OrderContext";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
-const ORDER_STATUSES = {
-    READY_FOR_PICKUP: 'READY_FOR_PICKUP',
-    ACCEPTED: "ACCEPTED",
-    PICKED_UP: 'PICKED_UP',
-}
+// const ORDER_STATUSES = {
+//     READY_FOR_PICKUP: 'READY_FOR_PICKUP',
+//     ACCEPTED: "ACCEPTED",
+//     PICKED_UP: 'PICKED_UP',
+// }
 
 const OrderDelivery = () => {
     const { order, user, dishes, acceptOrder, fetchOrder } = useOrderContext();
@@ -29,7 +29,7 @@ const OrderDelivery = () => {
     const [driverLocation, setDriverLocation] = useState(null);
     const [totalMinutes, setTotalMinutes] = useState(0);
     const [totalKm, setTotalKm] = useState(0);
-    const [deliveryStatus, setDeliveryStatus] = useState(ORDER_STATUSES.READY_FOR_PICKUP);
+    // const [deliveryStatus, setDeliveryStatus] = useState(ORDER_STATUSES.READY_FOR_PICKUP);
     const [isDriverClose, setIsDriverClose] = useState(false);
     const route = useRoute();
     const id = route.params?.id;
@@ -83,7 +83,8 @@ const OrderDelivery = () => {
     }
 
     const onButtonPressed = () => {
-        if(deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP) {
+        // if(deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP) {
+        if(order?.status === "READY_FOR_PICKUP") {
             bottomSheetRef.current?.collapse();
             mapRef.current.animateToRegion({
                 latitude: driverLocation.latitude,
@@ -91,14 +92,16 @@ const OrderDelivery = () => {
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01,
             });
-            setDeliveryStatus(ORDER_STATUSES.ACCEPTED);
+            // setDeliveryStatus(ORDER_STATUSES.ACCEPTED);
             acceptOrder();
         }
-        if(deliveryStatus === ORDER_STATUSES.ACCEPTED) {
+        // if(deliveryStatus === ORDER_STATUSES.ACCEPTED) {
+        if(order?.status === "ACCEPTED") {
             bottomSheetRef.current?.collapse();
-            setDeliveryStatus(ORDER_STATUSES.PICKED_UP);
+            // setDeliveryStatus(ORDER_STATUSES.PICKED_UP);
         }
-        if(deliveryStatus === ORDER_STATUSES.PICKED_UP) {
+        // if(deliveryStatus === ORDER_STATUSES.PICKED_UP) {
+        if(order?.status === "PICKED_UP") {
             bottomSheetRef.current?.collapse();
             navigation.goBack();
             console.warn('Order Delivered');
