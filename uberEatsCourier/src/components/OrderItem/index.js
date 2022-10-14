@@ -1,11 +1,13 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Entypo} from "@expo/vector-icons";
+import {useNavigation} from "@react-navigation/native";
 
 const OrderItem = ({order}) => {
+    const navigation = useNavigation();
 
     return (
-        <TouchableOpacity activeOpacity={0.7} className="flex-row items-center border border-[2px] my-2 border-green-500 rounded-lg">
+        <TouchableOpacity onPress={() => navigation.navigate('OrdersDeliveryScreen', {id: order.id})} activeOpacity={0.7} className="flex-row items-center border border-[2px] my-2 border-green-500 rounded-lg">
             <View className="flex-1 flex-row">
                 <Image source={{uri: order?.Restaurant?.image}} style={{}} className="w-20 m-1 rounded-lg" />
                 <View className="px-3 py-3">
