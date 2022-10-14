@@ -7,6 +7,8 @@ import MapView, {Marker} from "react-native-maps";
 import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import {useNavigation, useRoute} from "@react-navigation/native";
+import {DataStore} from "aws-amplify";
+import {Order, OrderDish, User} from "../../models";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
@@ -18,6 +20,8 @@ const ORDER_STATUSES = {
 
 const OrderDelivery = () => {
     const [order, setOrder] = useState(null);
+    const [user, setUser] = useState(null);
+    const [dishItems, setDishItems] = useState([]);
     const navigation = useNavigation();
     const bottomSheetRef = useRef(null);
     const mapRef = useRef(null);
@@ -31,8 +35,15 @@ const OrderDelivery = () => {
     const id = route.params?.id;
 
     useEffect(() => {
+        if(!id) return;
+        DataStore.query(Order, id).then(setOrder);
+    }, [id]);
 
-    }, []);
+    useEffect(() => {
+        if(!order) return;
+        DataStore.query(User, order.userID).then(setUser);
+        DataStore.query(OrderDish, (od) => od.orderID("eq", order.id)).then(setDishItems);
+    }, [order]);
 
     useEffect(() => {
         (async () => {
@@ -66,11 +77,11 @@ const OrderDelivery = () => {
         longitude: order?.Restaurant?.lng,
     };
     const deliveryLocation = {
-        latitude: order?.User?.lat,
-        longitude: order?.User?.lng,
+        latitude: user?.lat,
+        longitude: user?.lng,
     };
 
-    if(!driverLocation || !order) {
+    if(!driverLocation || !order || !user) {
         return (
             <View className="bg-gray-100 h-screen justify-center items-center">
                 <ActivityIndicator />
@@ -124,7 +135,6 @@ const OrderDelivery = () => {
         }
         return true;
     }
-
     return (
         <View className="bg-gray-100 h-screen">
             <MapView
@@ -161,9 +171,9 @@ const OrderDelivery = () => {
                     </TouchableOpacity>
                 </Marker>
                 <Marker
-                    coordinate={{latitude: order?.User?.lat, longitude: order?.User?.lng}}
-                    title={order?.User?.name}
-                    description={order?.User?.address}
+                    coordinate={deliveryLocation}
+                    title={user?.name}
+                    description={user?.address}
                 >
                     <TouchableOpacity activeOpacity={0.7} className="bg-blue-500 p-1 rounded-full">
                         <Entypo name="home" size={22} color="white" />
@@ -201,15 +211,14 @@ const OrderDelivery = () => {
                             </View>
                             <View className="flex-row items-center space-x-3 pb-4">
                                 <FontAwesome name="map-marker" size={24} color="gray" />
-                                <Text className="text-[20px] text-gray-600 font-[400]">{order?.User?.address}</Text>
+                                <Text className="text-[20px] text-gray-600 font-[400]">{user?.address}</Text>
                             </View>
                             <View className="border-b border-gray-300 border-[1px]"/>
 
                             <View className="space-y-1">
-                                <Text className="text-[17px] font-[600] text-gray-500">Onion Rings x1</Text>
-                                <Text className="text-[17px] font-[600] text-gray-500">Big Mac x2</Text>
-                                <Text className="text-[17px] font-[600] text-gray-500">Big Tasty x1</Text>
-                                <Text className="text-[17px] font-[600] text-gray-500">Coca Cola x4</Text>
+                                <FlatList data={dishItems} keyExtractor={item => item.id} renderItem={({item}) => (
+                                    <Text className="text-[17px] font-[600] text-gray-500">{item.name || 'Loading...'} x {item.quantity || 'x1'}</Text>
+                                )} />
                             </View>
                         </View>
                     </View>
