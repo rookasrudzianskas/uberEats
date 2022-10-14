@@ -20,7 +20,7 @@ const ORDER_STATUSES = {
 }
 
 const OrderDelivery = () => {
-    const { order, acceptOrder, fetchOrder } = useOrderContext();
+    const { order, user, dishes, acceptOrder, fetchOrder } = useOrderContext();
 
     const navigation = useNavigation();
     const bottomSheetRef = useRef(null);
@@ -70,11 +70,11 @@ const OrderDelivery = () => {
         longitude: order?.Restaurant?.lng,
     };
     const deliveryLocation = {
-        latitude: order?.user?.lat,
-        longitude: order?.user?.lng,
+        latitude: user?.lat,
+        longitude: user?.lng,
     };
 
-    if(!driverLocation || !order) {
+    if(!driverLocation || !order || !user) {
         return (
             <View className="bg-gray-100 h-screen justify-center items-center">
                 <ActivityIndicator />
@@ -168,8 +168,8 @@ const OrderDelivery = () => {
                 </Marker>
                 <Marker
                     coordinate={deliveryLocation}
-                    title={order?.user?.name}
-                    description={order?.user?.address}
+                    title={user?.name}
+                    description={user?.address}
                 >
                     <TouchableOpacity activeOpacity={0.7} className="bg-blue-500 p-1 rounded-full">
                         <Entypo name="home" size={22} color="white" />
@@ -207,12 +207,12 @@ const OrderDelivery = () => {
                             </View>
                             <View className="flex-row items-center space-x-3 pb-4">
                                 <FontAwesome name="map-marker" size={24} color="gray" />
-                                <Text className="text-[20px] text-gray-600 font-[400]">{order?.user?.address}</Text>
+                                <Text className="text-[20px] text-gray-600 font-[400]">{user?.address}</Text>
                             </View>
                             <View className="border-b border-gray-300 border-[1px]"/>
 
                             <View className="space-y-1">
-                                {order?.dishes?.map((dish, index) => (
+                                {dishes?.map((dish, index) => (
                                     <Text key={index} className="text-[17px] font-[600] text-gray-500">{dish.Dish.name || 'Loading...'} x {dish.Dish.quantity || 'x1'}</Text>
                                     // <Text>{dish.Dish.name}</Text>
                                 ))}

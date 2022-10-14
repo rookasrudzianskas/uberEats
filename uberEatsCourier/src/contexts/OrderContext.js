@@ -9,15 +9,17 @@ const OrderContextProvider = ({ children }) => {
     const { dbUser } = useAuthContext();
     const { dbCourier } = useAuthContext();
     const [order, setOrder] = useState(null);
+    const [user, setUser] = useState(null);
+    const [dishes, setDishes] = useState([]);
 
     const fetchOrder = async (id) => {
         if(!id) {
             setOrder(null);
             return;
         };
-        const fetchedOrder = await DataStore.query(Order, id);
-        fetchedOrder.user = await DataStore.query(User, fetchedOrder.userID);
-        fetchedOrder.dishes = await DataStore.query(OrderDish, (od) => od.orderID("eq", fetchedOrder.id));
+        DataStore.query(Order, id).then(setOrder);
+        DataStore.query(User, fetchedOrder.userID).then(setUser);
+        DataStore.query(OrderDish, (od) => od.orderID("eq", fetchedOrder.id)).then(setDishes);
         setOrder(fetchedOrder);
     }
 
@@ -32,7 +34,7 @@ const OrderContextProvider = ({ children }) => {
     };
 
     return (
-        <OrderContext.Provider value={{ acceptOrder, order, fetchOrder }}>
+        <OrderContext.Provider value={{ acceptOrder, order, user, dishes, fetchOrder }}>
             {children}
         </OrderContext.Provider>
     );
