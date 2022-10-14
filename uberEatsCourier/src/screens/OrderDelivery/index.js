@@ -31,6 +31,12 @@ const OrderDelivery = () => {
                 longitude: location.coords.longitude,
             });
         })();
+
+        foregroundSubscription = Location.watchPositionAsync({
+           accuracy: Location.Accuracy.High,
+           distanceInterval: 100,
+        });
+
     }, []);
 
     if(!driverLocation) {
