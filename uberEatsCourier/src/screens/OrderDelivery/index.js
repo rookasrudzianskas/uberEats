@@ -32,10 +32,16 @@ const OrderDelivery = () => {
             });
         })();
 
-        foregroundSubscription = Location.watchPositionAsync({
+        const foregroundSubscription = Location.watchPositionAsync({
            accuracy: Location.Accuracy.High,
            distanceInterval: 100,
+        }, (updatedLocation) => {
+            setDriverLocation({
+                latitude: updatedLocation.coords.latitude,
+                longitude: updatedLocation.coords.longitude,
+            })
         });
+        return () => foregroundSubscription;
 
     }, []);
 
