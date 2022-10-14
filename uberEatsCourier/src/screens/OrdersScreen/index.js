@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Text, View, StyleSheet, FlatList, TouchableOpacity, Alert} from 'react-native';
+import {Text, View, StyleSheet, FlatList, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
 import BottomSheet from "@gorhom/bottom-sheet";
 import orders from '../../assets/data/orders.json';
 import OrderItem from "../../components/OrderItem";
@@ -27,16 +27,24 @@ const OrdersScreen = () => {
         })();
     }, []);
 
-    console.log(driverLocation);
+    if(!driverLocation) {
+        return (
+            <View className="bg-gray-100 h-screen justify-center items-center">
+                <ActivityIndicator />
+            </View>
+        )
+    }
 
     return (
         <View className="bg-gray-100 h-screen">
             {/* showsUserLocation followsUserLocation TODO can be added as well. */}
             <MapView
-                // initialRegion={{
-                //     latitude: 37.78825,
-                //     longitude: -122.4324,
-                // }}
+                initialRegion={{
+                    latitude: driverLocation?.latitude,
+                    longitude: driverLocation?.longitude,
+                    latitudeDelta: 0.07,
+                    longitudeDelta: 0.07,
+                }}
                 style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
                 {orders.map((order, index) => (
                     <Marker key={index} title={order?.Restaurant?.name}
