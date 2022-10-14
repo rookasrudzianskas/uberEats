@@ -9,14 +9,21 @@ import MapViewDirections from "react-native-maps-directions";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
+const ORDER_STATUSES = {
+    READY_FOR_PICKUP: 'READY_FOR_PICKUP',
+    ACCEPTED: "ACCEPTED",
+    PICKED_UP: 'PICKED_UP',
+}
+
 const OrderDelivery = () => {
     const bottomSheetRef = useRef(null);
+    const mapRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
     const order = orders[0];
     const [driverLocation, setDriverLocation] = useState(null);
     const [totalMinutes, setTotalMinutes] = useState(0);
     const [totalKm, setTotalKm] = useState(0);
-    const [activeOrder, setActiveOrder] = useState(null);
+    const [deliveryStatus, setDeliveryStatus] = useState(ORDER_STATUSES.READY_FOR_PICKUP);
 
     useEffect(() => {
         (async () => {
@@ -54,14 +61,21 @@ const OrderDelivery = () => {
     }
 
     const onButtonPressed = () => {
-        if(!activeOrder) {
-            setActiveOrder(order);
+        if(deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP) {
+            mapRef.current.animateToRegion({
+                latitude: driverLocation.latitude,
+                longitude: driverLocation.longitude,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+            });
+            setDeliveryStatus(ORDER_STATUSES.ACCEPTED);
         }
     }
 
     return (
         <View className="bg-gray-100 h-screen">
             <MapView
+                ref={mapRef}
                 initialRegion={{
                     latitude: driverLocation?.latitude,
                     longitude: driverLocation?.longitude,
