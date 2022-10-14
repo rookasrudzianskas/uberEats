@@ -5,17 +5,17 @@ import OrderDelivery from "../screens/OrderDelivery";
 
 const Stack = createNativeStackNavigator();
 
-const RootNavigator = () => {
+const Navigation = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{
                 headerShown: false
-            }} name="Orders" component={OrdersScreen} />
+            }} name="OrdersScreen" component={OrdersScreen} />
             <Stack.Screen options={{
                 headerShown: false,
-            }} name="OrderPickUp" component={OrderDelivery} />
+            }} name="OrdersDeliveryScreen" component={OrderDelivery} />
         </Stack.Navigator>
     );
 }
 
-export default RootNavigator;
+export default Navigation;
