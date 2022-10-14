@@ -72,6 +72,12 @@ const OrderDelivery = () => {
             });
             setDeliveryStatus(ORDER_STATUSES.ACCEPTED);
         }
+        if(deliveryStatus === ORDER_STATUSES.ACCEPTED) {
+            setDeliveryStatus(ORDER_STATUSES.PICKED_UP);
+        }
+        if(deliveryStatus === ORDER_STATUSES.PICKED_UP) {
+            console.warn('Order Delivered');
+        }
     }
 
     const renderButtonTitle = () => {
@@ -86,8 +92,17 @@ const OrderDelivery = () => {
         }
     }
 
-    const isButtonPressable = () => {
-
+    const isButtonDisabled = () => {
+        if(deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP) {
+            return false;
+        }
+        if(deliveryStatus === ORDER_STATUSES.ACCEPTED && isDriverClose) {
+            return false;
+        }
+        if(deliveryStatus === ORDER_STATUSES.PICKED_UP && isDriverClose) {
+            return false;
+        }
+        return true;
     }
 
     return (
@@ -110,7 +125,7 @@ const OrderDelivery = () => {
                     apikey={GOOGLE_MAPS_APIKEY}
                     waypoints={[{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}]}
                     onReady={(result) => {
-                        if(result.distance < 0.1) {
+                        if(result.distance <= 0.1) {
                             setIsDriverClose(true);
                         }
                         setTotalMinutes(result.duration);
@@ -184,7 +199,7 @@ const OrderDelivery = () => {
                 </View>
 
                 <View className="mx-4 mt-80">
-                    <TouchableOpacity onPress={onButtonPressed} activeOpacity={0.7} className="mb-10 rounded-lg bg-green-400 w-full py-3 items-center justify-center">
+                    <TouchableOpacity disabled={isButtonDisabled()} onPress={onButtonPressed} activeOpacity={0.7} className={`mb-10 rounded-lg ${isButtonDisabled() ? 'bg-gray-200' : 'bg-green-400'} w-full py-3 items-center justify-center`}>
                         <Text className="text-lg text-white font-bold">{renderButtonTitle()}</Text>
                     </TouchableOpacity>
                 </View>
