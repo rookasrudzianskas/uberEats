@@ -21,7 +21,7 @@ const ORDER_STATUSES = {
 const OrderDelivery = () => {
     const [order, setOrder] = useState(null);
     const [user, setUser] = useState(null);
-    const [dishItems, setDishItems] = useState([]);
+    const [dishItems, setDishItems] = useState(null);
     const navigation = useNavigation();
     const bottomSheetRef = useRef(null);
     const mapRef = useRef(null);
@@ -216,9 +216,9 @@ const OrderDelivery = () => {
                             <View className="border-b border-gray-300 border-[1px]"/>
 
                             <View className="space-y-1">
-                                <FlatList data={dishItems} keyExtractor={item => item.id} renderItem={({item}) => (
-                                    <Text className="text-[17px] font-[600] text-gray-500">{item.name || 'Loading...'} x {item.quantity || 'x1'}</Text>
-                                )} />
+                                {dishItems.map((dish, index) => (
+                                    <Text key={index} className="text-[17px] font-[600] text-gray-500">{dish.name || 'Loading...'} x {dish.quantity || 'x1'}</Text>
+                                ))}
                             </View>
                         </View>
                     </View>
