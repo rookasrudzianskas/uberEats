@@ -1,16 +1,18 @@
-import {View, Text, TextInput, StyleSheet, Button, Alert} from "react-native";
+import {View, Text, TextInput, StyleSheet, Button, Alert, TouchableOpacity} from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {DataStore} from "aws-amplify";
 import {useAuthContext} from "../../contexts/AuthContext";
 import {useNavigation} from "@react-navigation/native";
-import {Courier} from "../../models";
+import {Courier, TransportationModes as TrasportationModes} from "../../models";
+import {AntDesign, FontAwesome} from "@expo/vector-icons";
 
 const Profile = () => {
   const { dbCourier, sub, setDbCourier } = useAuthContext();
   const [name, setName] = useState(dbCourier?.name || '');
   const [lat, setLat] = useState(dbCourier?.lat + "" || '0');
   const [lng, setLng] = useState(dbCourier?.lng + "" || '0');
+  const [transportationMode, setTransportationMode] = useState(TrasportationModes.DRIVING);
   const navigation = useNavigation();
 
   const onSave = async () => {
@@ -59,6 +61,16 @@ const Profile = () => {
         placeholder="Name"
         style={styles.input}
       />
+
+        <View className="flex-row items-center justify-between">
+            <TouchableOpacity activeOpacity={0.7} className=" bg-blue-500 border border-blue-600 border-[2px] flex-1 items-center py-1 mx-3 rounded-lg">
+                <AntDesign name="car" size={24} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.7} className="bg-yellow-500 border border-yellow-600 border-[2px] flex-1 items-center py-1 mx-3 rounded-lg">
+                <FontAwesome name="bicycle" size={24} color="white" />
+            </TouchableOpacity>
+        </View>
+
       <Button onPress={onSave} title="Save" />
     </SafeAreaView>
   );
