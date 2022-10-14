@@ -15,7 +15,6 @@ const ORDER_STATUSES = {
     ACCEPTED: "ACCEPTED",
     PICKED_UP: 'PICKED_UP',
 }
-const order = orders[0];
 
 const restaurantLocation = {
     latitude: order?.Restaurant?.lat,
@@ -27,6 +26,7 @@ const deliveryLocation = {
 };
 
 const OrderDelivery = () => {
+    const [order, setOrder] = useState(null);
     const navigation = useNavigation();
     const bottomSheetRef = useRef(null);
     const mapRef = useRef(null);
@@ -64,7 +64,7 @@ const OrderDelivery = () => {
 
     }, []);
 
-    if(!driverLocation) {
+    if(!driverLocation || !order) {
         return (
             <View className="bg-gray-100 h-screen justify-center items-center">
                 <ActivityIndicator />
