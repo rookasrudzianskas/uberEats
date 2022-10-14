@@ -4,6 +4,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import orders from '../../assets/data/orders.json';
 import OrderItem from "../../components/OrderItem";
 import MapView, {Marker} from "react-native-maps";
+import {Entypo} from "@expo/vector-icons";
 
 const OrdersScreen = () => {
     const bottomSheetRef = useRef(null);
@@ -12,11 +13,16 @@ const OrdersScreen = () => {
     return (
         <View className="bg-gray-100 h-screen">
             {/* showsUserLocation followsUserLocation TODO can be added as well. */}
-            <MapView style={{}} showsUserLocation followsUserLocation className="h-full w-full" >
-                <Marker title={'Something in here'} description={'This is a marker'} coordinate={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                }} />
+            <MapView style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
+                {orders.map((marker, index) => (
+                    <Marker key={index} title={'Something in here'}
+                            description={'This is a marker'} coordinate={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                    }} >
+                        <Entypo name="shop" size={24} color="green" />
+                    </Marker>
+                ))}
             </MapView>
             <BottomSheet ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
                 <View className="items-center">
