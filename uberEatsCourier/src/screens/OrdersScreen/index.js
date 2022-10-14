@@ -4,11 +4,17 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import OrderItem from "../../components/OrderItem";
 import MapView, {Marker} from "react-native-maps";
 import {Entypo} from "@expo/vector-icons";
+import {DataStore} from "aws-amplify";
+import {Order} from "../../models";
 
 const OrdersScreen = () => {
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
     const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        DataStore.query(Order).then(setOrders);
+    }, []);
 
     return (
         <View className="bg-gray-100 h-screen">
