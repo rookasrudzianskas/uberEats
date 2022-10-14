@@ -215,9 +215,11 @@ const OrderDelivery = () => {
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.7} className="absolute top-1 left-4">
-                    <AntDesign name="arrowleft" size={24} color="black" />
-                </TouchableOpacity>
+                {deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP && (
+                    <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.7} className="absolute top-1 left-4">
+                        <AntDesign name="arrowleft" size={24} color="black" />
+                    </TouchableOpacity>
+                )}
             </BottomSheet>
         </View>
     );
