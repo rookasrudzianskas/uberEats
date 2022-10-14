@@ -62,6 +62,7 @@ const OrderDelivery = () => {
 
     const onButtonPressed = () => {
         if(deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP) {
+            bottomSheetRef.current?.collapse();
             mapRef.current.animateToRegion({
                 latitude: driverLocation.latitude,
                 longitude: driverLocation.longitude,
