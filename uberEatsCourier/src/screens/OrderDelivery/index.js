@@ -24,6 +24,7 @@ const OrderDelivery = () => {
     const [totalMinutes, setTotalMinutes] = useState(0);
     const [totalKm, setTotalKm] = useState(0);
     const [deliveryStatus, setDeliveryStatus] = useState(ORDER_STATUSES.READY_FOR_PICKUP);
+    const [isDriverClose, setIsDriverClose] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -85,6 +86,10 @@ const OrderDelivery = () => {
         }
     }
 
+    const isButtonPressable = () => {
+
+    }
+
     return (
         <View className="bg-gray-100 h-screen">
             <MapView
@@ -105,6 +110,9 @@ const OrderDelivery = () => {
                     apikey={GOOGLE_MAPS_APIKEY}
                     waypoints={[{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}]}
                     onReady={(result) => {
+                        if(result.distance < 0.1) {
+                            setIsDriverClose(true);
+                        }
                         setTotalMinutes(result.duration);
                         setTotalKm(result.distance);
                     }}
