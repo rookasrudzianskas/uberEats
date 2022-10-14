@@ -11,7 +11,8 @@ const OrdersScreen = () => {
 
     return (
         <View className="bg-gray-100 h-screen">
-            <MapView style={{}} className="h-full w-full" showsUserLocation />
+            {/* showsUserLocation followsUserLocation TODO can be added as well. */}
+            <MapView style={{}} className="h-full w-full" />
             <BottomSheet ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
                 <View className="items-center">
                     <Text className="text-xl font-[500] text-gray-900 mt-1">You're Online</Text>
