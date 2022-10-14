@@ -19,6 +19,8 @@ const AuthContextProvider = ({children}) => {
         DataStore.query(Courier, (courier) => courier.sub('eq', sub)).then((couriers) => setDbCourier(couriers[0]));
     }, [sub]);
 
+    // console.log('dbCourier', dbCourier);
+
     return (
         <AuthContext.Provider value={{
             authUser,
