@@ -13,6 +13,7 @@ const OrdersScreen = () => {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
+        // query DataStore model Order and then set Orders state
         DataStore.query(Order).then(setOrders);
     }, []);
 

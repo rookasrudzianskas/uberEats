@@ -27,14 +27,14 @@ export const schema = {
                 "lat": {
                     "name": "lat",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
                 "lng": {
                     "name": "lng",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -894,5 +894,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "82702e3ff1794687e15cb025d1dbdce9"
+    "version": "9bb14d74df7bda3ce5eb6001f8247f62"
 };
