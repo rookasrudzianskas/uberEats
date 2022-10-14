@@ -1,5 +1,5 @@
 import React, {useMemo, useRef} from 'react';
-import {Text, View, StyleSheet, FlatList} from 'react-native';
+import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import BottomSheet from "@gorhom/bottom-sheet";
 import orders from '../../assets/data/orders.json';
 import OrderItem from "../../components/OrderItem";
@@ -15,12 +15,14 @@ const OrdersScreen = () => {
             {/* showsUserLocation followsUserLocation TODO can be added as well. */}
             <MapView style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
                 {orders.map((marker, index) => (
-                    <Marker key={index} title={'Something in here'}
-                            description={'This is a marker'} coordinate={{
+                    <Marker key={index} title={marker?.Restaurant?.name}
+                            description={marker?.Restaurant?.address} coordinate={{
                         latitude: 37.78825,
                         longitude: -122.4324,
                     }} >
-                        <Entypo name="shop" size={24} color="green" />
+                        <TouchableOpacity activeOpacity={0.7} className="bg-green-500 p-1 rounded-full">
+                            <Entypo name="shop" size={22} color="white" />
+                        </TouchableOpacity>
                     </Marker>
                 ))}
             </MapView>
