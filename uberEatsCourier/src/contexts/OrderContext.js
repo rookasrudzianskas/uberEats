@@ -14,7 +14,7 @@ const OrderContextProvider = ({ children }) => {
         // update the order, and change the status and assign the driver to the order
         DataStore.save(
             Order.copyOf(order, (updated) => {
-                updated.status = "COOKING"; // update to the ACCEPTED
+                updated.status = "ACCEPTED"; // update to the ACCEPTED
                 updated.Courier = dbCourier;
             })
         ).then(setActiveOrder);
