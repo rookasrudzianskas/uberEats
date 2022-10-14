@@ -14,12 +14,21 @@ const ORDER_STATUSES = {
     ACCEPTED: "ACCEPTED",
     PICKED_UP: 'PICKED_UP',
 }
+    const order = orders[0];
+
+const restaurantLocation = {
+    latitude: order?.Restaurant?.lat,
+    longitude: order?.Restaurant?.lng,
+};
+const deliveryLocation = {
+    latitude: order?.User?.lat,
+    longitude: order?.User?.lng,
+};
 
 const OrderDelivery = () => {
     const bottomSheetRef = useRef(null);
     const mapRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
-    const order = orders[0];
     const [driverLocation, setDriverLocation] = useState(null);
     const [totalMinutes, setTotalMinutes] = useState(0);
     const [totalKm, setTotalKm] = useState(0);
@@ -118,12 +127,9 @@ const OrderDelivery = () => {
                 style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
                 <MapViewDirections
                     origin={driverLocation}
-                    destination={{
-                        latitude: order?.User?.lat,
-                        longitude: order?.User?.lng,
-                    }}
+                    destination={deliveryStatus === ORDER_STATUSES.ACCEPTED ? restaurantLocation : deliveryLocation}
                     apikey={GOOGLE_MAPS_APIKEY}
-                    waypoints={[{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}]}
+                    waypoints={deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP ? [{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}] : []}
                     onReady={(result) => {
                         if(result.distance <= 0.1) {
                             setIsDriverClose(true);
