@@ -217,7 +217,6 @@ const OrderDelivery = () => {
                             <View className="space-y-1">
                                 {dishes?.map((dish, index) => (
                                     <Text key={index} className="text-[17px] font-[600] text-gray-500">{dish.Dish.name || 'Loading...'} x {dish.Dish.quantity || 'x1'}</Text>
-                                    // <Text>{dish.Dish.name}</Text>
                                 ))}
                             </View>
                         </View>
