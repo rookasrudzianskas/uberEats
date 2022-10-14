@@ -15,8 +15,8 @@ const OrderItem = ({order}) => {
                     <Text className="text-sm text-gray-500">{order?.Restaurant?.address}</Text>
                     <Text className="text-[15px] font-[600] mt-[4px]">Delivery Details:</Text>
 
-                    <Text className="text-sm text-gray-500 mt-[2px]">{order?.User?.name}</Text>
-                    <Text className="text-sm text-gray-500">{order?.User?.address}</Text>
+                    <Text className="text-sm text-gray-500 mt-[2px]">{order?.User?.name || 'Loading...'}</Text>
+                    <Text className="text-sm text-gray-500">{order?.User?.address || 'Loading...'}</Text>
                 </View>
             </View>
             <View className="bg-green-500 h-full flex-row px-2 items-center justify-center">
