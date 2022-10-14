@@ -9,6 +9,7 @@ import MapViewDirections from "react-native-maps-directions";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {DataStore} from "aws-amplify";
 import {Order, OrderDish, User} from "../../models";
+import {useOrderContext} from "../../contexts/OrderContext";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
@@ -31,6 +32,7 @@ const OrderDelivery = () => {
     const [totalKm, setTotalKm] = useState(0);
     const [deliveryStatus, setDeliveryStatus] = useState(ORDER_STATUSES.READY_FOR_PICKUP);
     const [isDriverClose, setIsDriverClose] = useState(false);
+    const { acceptOrder } = useOrderContext();
     const route = useRoute();
     const id = route.params?.id;
 
@@ -99,6 +101,7 @@ const OrderDelivery = () => {
                 longitudeDelta: 0.01,
             });
             setDeliveryStatus(ORDER_STATUSES.ACCEPTED);
+            acceptOrder(order);
         }
         if(deliveryStatus === ORDER_STATUSES.ACCEPTED) {
             bottomSheetRef.current?.collapse();
