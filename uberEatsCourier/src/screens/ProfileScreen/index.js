@@ -9,7 +9,6 @@ import {Courier} from "../../models";
 const Profile = () => {
   const { dbCourier, sub, setDbCourier } = useAuthContext();
   const [name, setName] = useState(dbCourier?.name || '');
-  const [address, setAddress] = useState(dbCourier?.address || '');
   const [lat, setLat] = useState(dbCourier?.lat + "" || '0');
   const [lng, setLng] = useState(dbCourier?.lng + "" || '0');
   const navigation = useNavigation();
@@ -58,25 +57,6 @@ const Profile = () => {
         value={name}
         onChangeText={setName}
         placeholder="Name"
-        style={styles.input}
-      />
-      <TextInput
-        value={address}
-        onChangeText={setAddress}
-        placeholder="Address"
-        style={styles.input}
-      />
-      <TextInput
-        value={lat}
-        onChangeText={setLat}
-        placeholder="Latitude"
-        style={styles.input}
-        keyboardType="numeric"
-      />
-      <TextInput
-        value={lng}
-        onChangeText={setLng}
-        placeholder="Longitude"
         style={styles.input}
       />
       <Button onPress={onSave} title="Save" />
