@@ -11,7 +11,6 @@ const OrderDelivery = () => {
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
     const order = orders[0];
-
     const [driverLocation, setDriverLocation] = useState(null);
 
     useEffect(() => {
@@ -47,6 +46,24 @@ const OrderDelivery = () => {
                     longitudeDelta: 0.07,
                 }}
                 style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
+                <Marker
+                    coordinate={{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}}
+                    title={order?.Restaurant?.name}
+                    description={order?.Restaurant?.address}
+                >
+                    <TouchableOpacity activeOpacity={0.7} className="bg-red-500 p-1 rounded-full">
+                        <Entypo name="shop" size={22} color="white" />
+                    </TouchableOpacity>
+                </Marker>
+                <Marker
+                    coordinate={{latitude: order?.User?.lat, longitude: order?.User?.lng}}
+                    title={order?.User?.name}
+                    description={order?.User?.address}
+                >
+                    <TouchableOpacity activeOpacity={0.7} className="bg-blue-500 p-1 rounded-full">
+                        <Entypo name="home" size={22} color="white" />
+                    </TouchableOpacity>
+                </Marker>
                 {orders.map((order, index) => (
                     <Marker key={index} title={order?.Restaurant?.name}
                             description={order?.Restaurant?.address} coordinate={{
