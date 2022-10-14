@@ -1,7 +1,6 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Text, View, StyleSheet, FlatList, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
 import BottomSheet from "@gorhom/bottom-sheet";
-import orders from '../../assets/data/orders.json';
 import OrderItem from "../../components/OrderItem";
 import MapView, {Marker} from "react-native-maps";
 import {Entypo} from "@expo/vector-icons";
@@ -9,6 +8,7 @@ import {Entypo} from "@expo/vector-icons";
 const OrdersScreen = () => {
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
+    const [orders, setOrders] = useState([]);
 
     return (
         <View className="bg-gray-100 h-screen">
