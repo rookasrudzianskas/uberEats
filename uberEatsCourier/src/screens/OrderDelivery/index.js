@@ -15,6 +15,8 @@ const OrderDelivery = () => {
     const snapPoints = useMemo(() => ["12%", "95%"], []);
     const order = orders[0];
     const [driverLocation, setDriverLocation] = useState(null);
+    const [totalMinutes, setTotalMinutes] = useState(0);
+    const [totalKm, setTotalKm] = useState(0);
 
     useEffect(() => {
         (async () => {
@@ -57,6 +59,10 @@ const OrderDelivery = () => {
                     }}
                     apikey={GOOGLE_MAPS_APIKEY}
                     waypoints={[{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}]}
+                    onReady={(result) => {
+                        setTotalMinutes(result.duration);
+                        setTotalKm(result.distance);
+                    }}
                     strokeWidth={5}
                     strokeColor="#1aa260"
                 />
@@ -96,9 +102,9 @@ const OrderDelivery = () => {
             <BottomSheet handleIndicatorStyle={{backgroundColor: 'grey', width: 100}} ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
                 <View className="">
                     <View className="flex-row items-center justify-center mt-4 mb-6 mx-4 space-x-1">
-                        <Text className="text-[19px] text-gray-900 font-[500]">14 min</Text>
+                        <Text className="text-[19px] text-gray-900 font-[500]">{totalMinutes} min</Text>
                         <Ionicons name="basket" size={27} color="green" />
-                        <Text className="text-[19px] text-gray-900 font-[500]">3.087 km</Text>
+                        <Text className="text-[19px] text-gray-900 font-[500]">{totalKm} km</Text>
                     </View>
                     <View className="border-b border-gray-300 mt-5 border-[1px]"/>
                     <View className="mx-4">
