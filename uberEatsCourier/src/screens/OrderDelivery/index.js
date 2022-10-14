@@ -6,6 +6,9 @@ import OrderItem from "../../components/OrderItem";
 import {Entypo, FontAwesome, Ionicons} from "@expo/vector-icons";
 import MapView, {Marker} from "react-native-maps";
 import * as Location from "expo-location";
+import MapViewDirections from "react-native-maps-directions";
+
+const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
 const OrderDelivery = () => {
     const bottomSheetRef = useRef(null);
@@ -46,6 +49,16 @@ const OrderDelivery = () => {
                     longitudeDelta: 0.07,
                 }}
                 style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
+                <MapViewDirections
+                    origin={driverLocation}
+                    destination={{
+                        latitude: order?.User?.lat,
+                        longitude: order?.User?.lng,
+                    }}
+                    apikey={GOOGLE_MAPS_APIKEY}
+                    strokeWidth={10}
+                    strokeColor="black"
+                />
                 <Marker
                     coordinate={{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}}
                     title={order?.Restaurant?.name}
