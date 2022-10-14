@@ -4,14 +4,15 @@ import Navigation from "./src/navigation";
 import "react-native-gesture-handler";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import { Amplify } from 'aws-amplify';
-// import awsconfig from './src/aws-exports';
+import awsconfig from './src/aws-exports';
+import {withAuthenticator} from "aws-amplify-react-native/src/Auth";
 
-// Amplify.configure({
-//     ...awsconfig,
-//     Analytics: {
-//         disabled: true,
-//     }
-// });
+Amplify.configure({
+    ...awsconfig,
+    Analytics: {
+        disabled: true,
+    }
+});
 
 const App = () => {
     return (
@@ -24,4 +25,4 @@ const App = () => {
     );
 }
 
-export default App;
+export default withAuthenticator(App);
