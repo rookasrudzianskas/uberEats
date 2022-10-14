@@ -54,7 +54,9 @@ const OrderDelivery = () => {
     }
 
     const onButtonPressed = () => {
-
+        if(!activeOrder) {
+            setActiveOrder(order);
+        }
     }
 
     return (
@@ -147,7 +149,7 @@ const OrderDelivery = () => {
                 </View>
 
                 <View className="mx-4 mt-80">
-                    <TouchableOpacity activeOpacity={0.7} className="mb-10 rounded-lg bg-green-400 w-full py-3 items-center justify-center">
+                    <TouchableOpacity onPress={onButtonPressed} activeOpacity={0.7} className="mb-10 rounded-lg bg-green-400 w-full py-3 items-center justify-center">
                         <Text className="text-lg text-white font-bold">Accept Order</Text>
                     </TouchableOpacity>
                 </View>
