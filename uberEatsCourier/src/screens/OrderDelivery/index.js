@@ -109,25 +109,25 @@ const OrderDelivery = () => {
     }
 
     const renderButtonTitle = () => {
-        if(deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP) {
+        if(order.status === "READY_FOR_PICKUP") {
             return 'Accept Order';
         }
-        if(deliveryStatus === ORDER_STATUSES.ACCEPTED) {
+        if(order.status === "ACCEPTED") {
             return 'Pick Up Order';
         }
-        if(deliveryStatus === ORDER_STATUSES.PICKED_UP) {
+        if(order.status === "PICKED_UP") {
             return 'Drop Off Order';
         }
     }
 
     const isButtonDisabled = () => {
-        if(deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP) {
+        if(order.status === "READY_FOR_PICKUP") {
             return false;
         }
-        if(deliveryStatus === ORDER_STATUSES.ACCEPTED && isDriverClose) {
+        if(order.status === "ACCEPTED" && isDriverClose) {
             return false;
         }
-        if(deliveryStatus === ORDER_STATUSES.PICKED_UP && isDriverClose) {
+        if(order.status === "PICKED_UP" && isDriverClose) {
             return false;
         }
         return true;
@@ -147,9 +147,9 @@ const OrderDelivery = () => {
                 style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
                 <MapViewDirections
                     origin={driverLocation}
-                    destination={deliveryStatus === ORDER_STATUSES.ACCEPTED ? restaurantLocation : deliveryLocation}
+                    destination={order?.status === "ACCEPTED" ? restaurantLocation : deliveryLocation}
                     apikey={GOOGLE_MAPS_APIKEY}
-                    waypoints={deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP ? [restaurantLocation] : []}
+                    waypoints={order?.status === "READY_FOR_PICKUP" ? [restaurantLocation] : []}
                     onReady={(result) => {
                         if(result.distance <= 0.1) {
                             setIsDriverClose(result.distance <= 0.1); // should be good
@@ -230,7 +230,7 @@ const OrderDelivery = () => {
                     </TouchableOpacity>
                 </View>
 
-                {deliveryStatus === ORDER_STATUSES.READY_FOR_PICKUP && (
+                {order?.status === "READY_FOR_PICKUP" && (
                     <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.7} className="absolute top-1 left-4">
                         <AntDesign name="arrowleft" size={24} color="black" />
                     </TouchableOpacity>
