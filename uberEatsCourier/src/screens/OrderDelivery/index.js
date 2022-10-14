@@ -102,9 +102,9 @@ const OrderDelivery = () => {
             <BottomSheet handleIndicatorStyle={{backgroundColor: 'grey', width: 100}} ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
                 <View className="">
                     <View className="flex-row items-center justify-center mt-4 mb-6 mx-4 space-x-1">
-                        <Text className="text-[19px] text-gray-900 font-[500]">{totalMinutes} min</Text>
+                        <Text className="text-[19px] text-gray-900 font-[500]">{totalMinutes.toFixed(0) || 'Loading ...'} min</Text>
                         <Ionicons name="basket" size={27} color="green" />
-                        <Text className="text-[19px] text-gray-900 font-[500]">{totalKm} km</Text>
+                        <Text className="text-[19px] text-gray-900 font-[500]">{totalKm.toFixed(0) || 'Loading..'} km</Text>
                     </View>
                     <View className="border-b border-gray-300 mt-5 border-[1px]"/>
                     <View className="mx-4">
