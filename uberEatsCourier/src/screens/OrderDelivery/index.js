@@ -6,7 +6,7 @@ import {AntDesign, Entypo, FontAwesome, Ionicons} from "@expo/vector-icons";
 import MapView, {Marker} from "react-native-maps";
 import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
@@ -15,15 +15,6 @@ const ORDER_STATUSES = {
     ACCEPTED: "ACCEPTED",
     PICKED_UP: 'PICKED_UP',
 }
-
-const restaurantLocation = {
-    latitude: order?.Restaurant?.lat,
-    longitude: order?.Restaurant?.lng,
-};
-const deliveryLocation = {
-    latitude: order?.User?.lat,
-    longitude: order?.User?.lng,
-};
 
 const OrderDelivery = () => {
     const [order, setOrder] = useState(null);
@@ -36,6 +27,12 @@ const OrderDelivery = () => {
     const [totalKm, setTotalKm] = useState(0);
     const [deliveryStatus, setDeliveryStatus] = useState(ORDER_STATUSES.READY_FOR_PICKUP);
     const [isDriverClose, setIsDriverClose] = useState(false);
+    const route = useRoute();
+    const id = route.params?.id;
+
+    useEffect(() => {
+
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -63,6 +60,15 @@ const OrderDelivery = () => {
         return () => foregroundSubscription;
 
     }, []);
+
+    const restaurantLocation = {
+        latitude: order?.Restaurant?.lat,
+        longitude: order?.Restaurant?.lng,
+    };
+    const deliveryLocation = {
+        latitude: order?.User?.lat,
+        longitude: order?.User?.lng,
+    };
 
     if(!driverLocation || !order) {
         return (
