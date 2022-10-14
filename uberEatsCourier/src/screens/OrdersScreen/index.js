@@ -14,11 +14,13 @@ const OrdersScreen = () => {
         <View className="bg-gray-100 h-screen">
             {/* showsUserLocation followsUserLocation TODO can be added as well. */}
             <MapView style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
-                {orders.map((marker, index) => (
-                    <Marker key={index} title={marker?.Restaurant?.name}
-                            description={marker?.Restaurant?.address} coordinate={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
+                {orders.map((order, index) => (
+                    <Marker key={index} title={order?.Restaurant?.name}
+                            description={order?.Restaurant?.address} coordinate={{
+                        // latitude: 37.78825,
+                        // longitude: -122.4324,
+                        latitude: order?.Restaurant?.lat,
+                        longitude: order?.Restaurant?.lng,
                     }} >
                         <TouchableOpacity activeOpacity={0.7} className="bg-green-500 p-1 rounded-full">
                             <Entypo name="shop" size={22} color="white" />
