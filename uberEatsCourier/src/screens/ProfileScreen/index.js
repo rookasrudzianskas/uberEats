@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {DataStore} from "aws-amplify";
 import {useAuthContext} from "../../contexts/AuthContext";
-import {User} from "../../models";
 import {useNavigation} from "@react-navigation/native";
+import {Courier} from "../../models";
 
 const Profile = () => {
   const {sub, setDbUser, dbUser } = useAuthContext();
@@ -25,7 +25,7 @@ const Profile = () => {
   const updateUser = async () => {
       // update user
       const user = await DataStore.save(
-          User.copyOf(dbUser, updated => {
+          Courier.copyOf(dbUser, updated => {
               updated.name = name,
               updated.address = address,
               updated.lat = parseFloat(lat),
@@ -39,7 +39,7 @@ const Profile = () => {
   const createUser = async () => {
       // save in DataStore here
       try {
-          const user = await DataStore.save(new User({
+          const user = await DataStore.save(new Courier({
               name,
               address,
               lat: parseFloat(lat),
