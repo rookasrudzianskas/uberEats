@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Text, View, StyleSheet, FlatList, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
-import BottomSheet from "@gorhom/bottom-sheet";
+import {Text, View, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, FlatList} from 'react-native';
+import BottomSheet, {BottomSheetFlatList} from "@gorhom/bottom-sheet";
 import OrderItem from "../../components/OrderItem";
 import MapView, {Marker} from "react-native-maps";
 import {Entypo} from "@expo/vector-icons";
@@ -14,7 +14,7 @@ const OrdersScreen = () => {
 
     useEffect(() => {
         // query DataStore model Order and then set Orders state
-        DataStore.query(Order).then(setOrders);
+        DataStore.query(Order, (order) => order.status('eq', "READY_FOR_PICKUP")).then(setOrders);
     }, []);
 
     return (
