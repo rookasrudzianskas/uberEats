@@ -133,7 +133,6 @@ const OrderDelivery = () => {
         return true;
     }
 
-    // console.log(dishItems)
     return (
         <View className="bg-gray-100 h-screen">
             <MapView
