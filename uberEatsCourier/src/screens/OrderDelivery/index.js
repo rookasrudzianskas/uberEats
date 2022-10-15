@@ -20,7 +20,6 @@ const OrderDelivery = () => {
     const [driverLocation, setDriverLocation] = useState(null);
     const [totalMinutes, setTotalMinutes] = useState(0);
     const [totalKm, setTotalKm] = useState(0);
-    const [isDriverClose, setIsDriverClose] = useState(false);
     const route = useRoute();
     const id = route.params?.id;
 
@@ -44,7 +43,7 @@ const OrderDelivery = () => {
 
         const foregroundSubscription = Location.watchPositionAsync({
            accuracy: Location.Accuracy.High,
-           distanceInterval: 100,
+           distanceInterval: 500,
         }, (updatedLocation) => {
             setDriverLocation({
                 latitude: updatedLocation.coords.latitude,
@@ -89,9 +88,6 @@ const OrderDelivery = () => {
                     apikey={GOOGLE_MAPS_APIKEY}
                     waypoints={order?.status === "READY_FOR_PICKUP" ? [restaurantLocation] : []}
                     onReady={(result) => {
-                        if(result.distance <= 0.1) {
-                            setIsDriverClose(result.distance <= 0.1); // should be good
-                        }
                         setTotalMinutes(result.duration);
                         setTotalKm(result.distance);
                     }}

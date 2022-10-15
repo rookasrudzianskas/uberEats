@@ -10,7 +10,9 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 import {useOrderContext} from "../../contexts/OrderContext";
 
 
-const BottomSheetDetails = () => {
+const BottomSheetDetails = (props) => {
+    const {totalKm, totalMinutes} = props;
+    const isDriverClose = totalKm <= 1; // decrease for higher accuracy
     const { order, user, dishes, acceptOrder, fetchOrder, completeOrder, pickUpOrder } = useOrderContext();
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
