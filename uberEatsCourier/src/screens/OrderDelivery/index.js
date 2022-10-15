@@ -129,7 +129,9 @@ const OrderDelivery = () => {
                     </Marker>
                 ))}
             </MapView>
+
             <BottomSheetDetails />
+
         </View>
     );
 };
