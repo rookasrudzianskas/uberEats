@@ -8,7 +8,6 @@ import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {useOrderContext} from "../../contexts/OrderContext";
-import BottomSheetDetails from "./BottomSheetDetails";
 
 
 const BottomSheetDetails = () => {
