@@ -2,18 +2,13 @@ import React, {useMemo, useRef} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {AntDesign, FontAwesome, Ionicons} from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
-import orders from "../../assets/data/orders.json";
-import MapView, {Marker} from "react-native-maps";
-import * as Location from "expo-location";
-import MapViewDirections from "react-native-maps-directions";
-import {useNavigation, useRoute} from "@react-navigation/native";
 import {useOrderContext} from "../../contexts/OrderContext";
 
 
 const BottomSheetDetails = (props) => {
     const {totalKm, totalMinutes} = props;
     const isDriverClose = totalKm <= 1; // decrease for higher accuracy
-    const { order, user, dishes, acceptOrder, fetchOrder, completeOrder, pickUpOrder } = useOrderContext();
+    const { order, user, dishes, acceptOrder, completeOrder, pickUpOrder } = useOrderContext();
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
 
