@@ -31,11 +31,28 @@ const OrderContextProvider = ({ children }) => {
                 updated.status = "ACCEPTED"; // update to the ACCEPTED
                 updated.Courier = dbCourier;
             })
-        ).then(setActiveOrder);
+        ).then(setOrder);
+    };
+
+    const pickUpOrder = () => {
+        DataStore.save(
+            Order.copyOf(order, (updated) => {
+                updated.status = "PICKED_UP"; // update to the COMPLETE
+            })
+        ).then(setOrder);
+    };
+
+    const completeOrder = () => {
+        DataStore.save(
+            Order.copyOf(order, (updated) => {
+                updated.status = "COMPLETED";
+                updated.Courier = dbCourier;
+            })
+        ).then(setOrder);
     };
 
     return (
-        <OrderContext.Provider value={{ acceptOrder, order, user, dishes, fetchOrder }}>
+        <OrderContext.Provider value={{ acceptOrder, order, user, dishes, fetchOrder, pickUpOrder, completeOrder }}>
             {children}
         </OrderContext.Provider>
     );
