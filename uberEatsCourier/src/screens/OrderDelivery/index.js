@@ -168,8 +168,6 @@ const OrderDelivery = () => {
                 {orders.map((order, index) => (
                     <Marker key={index} title={order?.Restaurant?.name}
                             description={order?.Restaurant?.address} coordinate={{
-                        // latitude: 37.78825,
-                        // longitude: -122.4324,
                         latitude: order?.Restaurant?.lat,
                         longitude: order?.Restaurant?.lng,
                     }}
