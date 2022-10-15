@@ -16,9 +16,7 @@ const OrderDelivery = () => {
     const { order, user, dishes, acceptOrder, fetchOrder, completeOrder, pickUpOrder } = useOrderContext();
 
     const navigation = useNavigation();
-    const bottomSheetRef = useRef(null);
     const mapRef = useRef(null);
-    const snapPoints = useMemo(() => ["12%", "95%"], []);
     const [driverLocation, setDriverLocation] = useState(null);
     const [totalMinutes, setTotalMinutes] = useState(0);
     const [totalKm, setTotalKm] = useState(0);
@@ -72,54 +70,6 @@ const OrderDelivery = () => {
                 <ActivityIndicator />
             </View>
         )
-    }
-
-    const onButtonPressed = async () => {
-        if (order?.status === "READY_FOR_PICKUP") {
-            bottomSheetRef.current?.collapse();
-            mapRef.current.animateToRegion({
-                latitude: driverLocation.latitude,
-                longitude: driverLocation.longitude,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01,
-            });
-            acceptOrder();
-        }
-        if (order?.status === "ACCEPTED") {
-            bottomSheetRef.current?.collapse();
-            pickUpOrder();
-        }
-        if (order?.status === "PICKED_UP") {
-            await completeOrder();
-            bottomSheetRef.current?.collapse();
-            navigation.goBack();
-            console.warn('Order Delivered');
-        }
-    }
-
-    const renderButtonTitle = () => {
-        if(order.status === "READY_FOR_PICKUP") {
-            return 'Accept Order';
-        }
-        if(order.status === "ACCEPTED") {
-            return 'Pick Up Order';
-        }
-        if(order.status === "PICKED_UP") {
-            return 'Drop Off Order';
-        }
-    }
-
-    const isButtonDisabled = () => {
-        if(order.status === "READY_FOR_PICKUP") {
-            return false;
-        }
-        if(order.status === "ACCEPTED" && isDriverClose) {
-            return false;
-        }
-        if(order.status === "PICKED_UP" && isDriverClose) {
-            return false;
-        }
-        return true;
     }
 
     return (

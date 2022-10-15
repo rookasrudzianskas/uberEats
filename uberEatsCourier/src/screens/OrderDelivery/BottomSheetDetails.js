@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo, useRef} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {AntDesign, FontAwesome, Ionicons} from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -12,6 +12,59 @@ import BottomSheetDetails from "./BottomSheetDetails";
 
 
 const BottomSheetDetails = () => {
+    const { order, user, dishes, acceptOrder, fetchOrder, completeOrder, pickUpOrder } = useOrderContext();
+    const bottomSheetRef = useRef(null);
+    const snapPoints = useMemo(() => ["12%", "95%"], []);
+
+    const onButtonPressed = async () => {
+        if (order?.status === "READY_FOR_PICKUP") {
+            bottomSheetRef.current?.collapse();
+            mapRef.current.animateToRegion({
+                latitude: driverLocation.latitude,
+                longitude: driverLocation.longitude,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+            });
+            acceptOrder();
+        }
+        if (order?.status === "ACCEPTED") {
+            bottomSheetRef.current?.collapse();
+            pickUpOrder();
+        }
+        if (order?.status === "PICKED_UP") {
+            await completeOrder();
+            bottomSheetRef.current?.collapse();
+            navigation.goBack();
+            console.warn('Order Delivered');
+        }
+    }
+
+    const renderButtonTitle = () => {
+        if(order.status === "READY_FOR_PICKUP") {
+            return 'Accept Order';
+        }
+        if(order.status === "ACCEPTED") {
+            return 'Pick Up Order';
+        }
+        if(order.status === "PICKED_UP") {
+            return 'Drop Off Order';
+        }
+    }
+
+    const isButtonDisabled = () => {
+        if(order.status === "READY_FOR_PICKUP") {
+            return false;
+        }
+        if(order.status === "ACCEPTED" && isDriverClose) {
+            return false;
+        }
+        if(order.status === "PICKED_UP" && isDriverClose) {
+            return false;
+        }
+        return true;
+    }
+
+
     return (
         <BottomSheet className="relative" handleIndicatorStyle={{backgroundColor: 'grey', width: 100}} ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
             <View className="">
