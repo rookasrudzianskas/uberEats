@@ -6,6 +6,7 @@ import MapView, {Marker} from "react-native-maps";
 import {Entypo} from "@expo/vector-icons";
 import {DataStore} from "aws-amplify";
 import {Order} from "../../models";
+import CustomMarker from "../../components/CustomMarker";
 
 const OrdersScreen = () => {
     const bottomSheetRef = useRef(null);
@@ -23,17 +24,7 @@ const OrdersScreen = () => {
             <MapView
                 style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
                 {orders.map((order, index) => (
-                    <Marker key={index} title={order?.Restaurant?.name}
-                            description={order?.Restaurant?.address} coordinate={{
-                        // latitude: 37.78825,
-                        // longitude: -122.4324,
-                        latitude: order?.Restaurant?.lat,
-                        longitude: order?.Restaurant?.lng,
-                    }} >
-                        <TouchableOpacity activeOpacity={0.7} className="bg-green-500 p-1 rounded-full">
-                            <Entypo name="shop" size={22} color="white" />
-                        </TouchableOpacity>
-                    </Marker>
+                    <CustomMarker data={order?.Restaurant} type={"RESTAURANT"} key={order?.id}/>
                 ))}
             </MapView>
             <BottomSheet ref={bottomSheetRef} index={1} snapPoints={snapPoints}>

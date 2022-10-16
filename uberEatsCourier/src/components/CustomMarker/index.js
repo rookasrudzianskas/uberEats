@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Entypo} from "@expo/vector-icons";
 import {Marker} from "react-native-maps";
 
-const CustomMarker = ({data, type}) => {
+const Index = ({data, type}) => {
     return (
         <Marker
             coordinate={{latitude: data?.lat, longitude: data?.lng}}
@@ -21,4 +21,4 @@ const CustomMarker = ({data, type}) => {
     );
 };
 
-export default CustomMarker;
+export default Index;
