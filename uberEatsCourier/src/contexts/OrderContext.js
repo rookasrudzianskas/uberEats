@@ -26,14 +26,12 @@ const OrderContextProvider = ({ children }) => {
 
     const acceptOrder = async () => {
         // update the order, and change the status and assign the driver to the order
-        console.log(order);
         const updatedOrder = await DataStore.save(
             Order.copyOf(order, (updated) => {
                 updated.status = "ACCEPTED"; // update to the ACCEPTED
                 updated.Courier = dbCourier;
             })
         )
-        console.log("Updated Order >>>> #1", updatedOrder);
         setOrder(updatedOrder);
     };
 
@@ -43,6 +41,7 @@ const OrderContextProvider = ({ children }) => {
                 updated.status = "PICKED_UP"; // update to the COMPLETE
             })
         );
+        console.log(updatedOrder);
         setOrder(updatedOrder);
     };
 
