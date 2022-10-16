@@ -117,7 +117,7 @@ const OrderDelivery = () => {
                 ))}
             </MapView>
 
-            <BottomSheetDetails totalKm={totalKm} totalMinutes={totalMinutes} />
+            <BottomSheetDetails totalKm={totalKm} totalMinutes={totalMinutes} mapRef={mapRef} />
 
         </View>
     );

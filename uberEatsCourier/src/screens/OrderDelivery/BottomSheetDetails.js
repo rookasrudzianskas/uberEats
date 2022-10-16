@@ -11,7 +11,7 @@ const STATUS_TO_TITLE  = {
 }
 
 const BottomSheetDetails = (props) => {
-    const {totalKm, totalMinutes} = props;
+    const {totalKm, totalMinutes, mapRef} = props;
     const isDriverClose = totalKm <= 1; // decrease for higher accuracy
     const { order, user, dishes, acceptOrder, completeOrder, pickUpOrder } = useOrderContext();
     const bottomSheetRef = useRef(null);
