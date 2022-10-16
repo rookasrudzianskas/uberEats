@@ -23,7 +23,7 @@ const BottomSheetDetails = (props) => {
         const {status} = order;
         if (status === "READY_FOR_PICKUP") {
             bottomSheetRef.current?.collapse();
-            acceptOrder();
+            await acceptOrder();
             onAccepted();
         }
         else if (status === "ACCEPTED") {
