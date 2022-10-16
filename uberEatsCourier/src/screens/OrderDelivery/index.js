@@ -9,12 +9,15 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 import {useOrderContext} from "../../contexts/OrderContext";
 import BottomSheetDetails from "./BottomSheetDetails";
 import Index from "../../components/CustomMarker";
+import {DataStore} from "aws-amplify";
+import {Courier} from "../../models";
+import {useAuthContext} from "../../contexts/AuthContext";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
 const OrderDelivery = () => {
     const { order, user, dishes, acceptOrder, fetchOrder, completeOrder, pickUpOrder } = useOrderContext();
-
+    const {dbCourier} = useAuthContext();
     const navigation = useNavigation();
     const mapRef = useRef(null);
     const [driverLocation, setDriverLocation] = useState(null);
@@ -26,6 +29,14 @@ const OrderDelivery = () => {
     useEffect(() => {
         fetchOrder(id);
     }, [id]);
+
+    useEffect(() => {
+        if(!driverLocation) return;
+        DataStore.save(Courier.copyOf(dbCourier, (updated) => {
+            updated.lat = driverLocation.latitude;
+            updated.lng = driverLocation.longitude;
+        }));
+    }, [driverLocation]);
 
     useEffect(() => {
         (async () => {
