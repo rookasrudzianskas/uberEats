@@ -13,6 +13,7 @@ import OrderDetails from "../screens/OrderDetails/OrderDetails";
 import {Auth} from "aws-amplify";
 import ProfileScreen from "../screens/ProfileScreen";
 import {useAuthContext} from "../contexts/AuthContext";
+import OrderDetailsNavigator from "./OrderDetailsNavigator";
 
 
 const Stack = createNativeStackNavigator();
@@ -84,7 +85,9 @@ const OrderStackNavigator = () => {
     return (
         <OrdersStack.Navigator>
             <OrdersStack.Screen name="OrdersScreen" component={OrdersScreen} />
-            <OrdersStack.Screen name="Order" component={OrderDetails} />
+            <OrdersStack.Screen name="Order" component={OrderDetailsNavigator} screenOptions={{
+                headerShown: false
+            }} />
         </OrdersStack.Navigator>
     );
 }
