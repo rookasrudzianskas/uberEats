@@ -4,6 +4,11 @@ import {AntDesign, FontAwesome, Ionicons} from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
 import {useOrderContext} from "../../contexts/OrderContext";
 
+const STATUS_TO_TITLE  = {
+    "READY_FOR_PICKUP": "Accept Order",
+    "ACCEPTED": "Pick Up Order",
+    "PICKED_UP": "Complete Delivery",
+}
 
 const BottomSheetDetails = (props) => {
     const {totalKm, totalMinutes} = props;
@@ -32,18 +37,6 @@ const BottomSheetDetails = (props) => {
             bottomSheetRef.current?.collapse();
             navigation.goBack();
             console.warn('Order Delivered');
-        }
-    }
-
-    const renderButtonTitle = () => {
-        if(order.status === "READY_FOR_PICKUP") {
-            return 'Accept Order';
-        }
-        if(order.status === "ACCEPTED") {
-            return 'Pick Up Order';
-        }
-        if(order.status === "PICKED_UP") {
-            return 'Drop Off Order';
         }
     }
 
@@ -94,7 +87,7 @@ const BottomSheetDetails = (props) => {
 
             <View className="mx-4 mt-80">
                 <TouchableOpacity disabled={isButtonDisabled()} onPress={onButtonPressed} activeOpacity={0.7} className={`mb-10 rounded-lg ${isButtonDisabled() ? 'bg-gray-200' : 'bg-green-400'} w-full py-3 items-center justify-center`}>
-                    <Text className="text-lg text-white font-bold">{renderButtonTitle()}</Text>
+                    <Text className="text-lg text-white font-bold">{STATUS_TO_TITLE[order?.status]}</Text>
                 </TouchableOpacity>
             </View>
 
