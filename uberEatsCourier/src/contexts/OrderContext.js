@@ -34,12 +34,13 @@ const OrderContextProvider = ({ children }) => {
         ).then(setOrder);
     };
 
-    const pickUpOrder = () => {
-        DataStore.save(
+    const pickUpOrder = async () => {
+        const updatedOrder = await DataStore.save(
             Order.copyOf(order, (updated) => {
                 updated.status = "PICKED_UP"; // update to the COMPLETE
             })
-        ).then(setOrder);
+        );
+        setOrder(updatedOrder);
     };
 
     const completeOrder = async () => {

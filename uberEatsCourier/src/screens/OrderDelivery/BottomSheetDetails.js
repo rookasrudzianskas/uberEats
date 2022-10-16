@@ -12,7 +12,7 @@ const STATUS_TO_TITLE  = {
 }
 
 const BottomSheetDetails = (props) => {
-    const {totalKm, totalMinutes, mapRef} = props;
+    const {totalKm, totalMinutes, onAccepted} = props;
     const navigation = useNavigation();
     const isDriverClose = totalKm <= 1; // decrease for higher accuracy
     const { order, user, dishes, acceptOrder, completeOrder, pickUpOrder } = useOrderContext();
@@ -23,19 +23,14 @@ const BottomSheetDetails = (props) => {
         const {status} = order;
         if (status === "READY_FOR_PICKUP") {
             bottomSheetRef.current?.collapse();
-            mapRef.current.animateToRegion({
-                latitude: driverLocation.latitude,
-                longitude: driverLocation.longitude,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01,
-            });
             acceptOrder();
+            onAccepted();
         }
-        if (status === "ACCEPTED") {
+        else if (status === "ACCEPTED") {
             bottomSheetRef.current?.collapse();
-            pickUpOrder();
+            await pickUpOrder();
         }
-        if (status === "PICKED_UP") {
+        else if (status === "PICKED_UP") {
             await completeOrder();
             bottomSheetRef.current?.collapse();
             navigation.goBack();

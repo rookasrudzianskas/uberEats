@@ -54,6 +54,15 @@ const OrderDelivery = () => {
 
     }, []);
 
+    const zoomInOnDriver = () => {
+        mapRef.current.animateToRegion({
+            latitude: driverLocation.latitude,
+            longitude: driverLocation.longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+        });
+    }
+
     const restaurantLocation = {
         latitude: order?.Restaurant?.lat,
         longitude: order?.Restaurant?.lng,
@@ -117,7 +126,7 @@ const OrderDelivery = () => {
                 ))}
             </MapView>
 
-            <BottomSheetDetails totalKm={totalKm} totalMinutes={totalMinutes} mapRef={mapRef} />
+            <BottomSheetDetails totalKm={totalKm} totalMinutes={totalMinutes} onAccepted={zoomInOnDriver} />
 
         </View>
     );
