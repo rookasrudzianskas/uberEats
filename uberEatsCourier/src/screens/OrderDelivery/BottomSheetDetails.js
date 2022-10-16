@@ -41,13 +41,12 @@ const BottomSheetDetails = (props) => {
     }
 
     const isButtonDisabled = () => {
-        if(order.status === "READY_FOR_PICKUP") {
+        const {status} = order;
+        if(status === "READY_FOR_PICKUP") {
             return false;
         }
-        if(order.status === "ACCEPTED" && isDriverClose) {
-            return false;
-        }
-        if(order.status === "PICKED_UP" && isDriverClose) {
+
+        if((status === "ACCEPTED" || status === "PICKED_UP") && isDriverClose) {
             return false;
         }
         return true;
