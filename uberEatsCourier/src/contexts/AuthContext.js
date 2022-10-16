@@ -35,8 +35,6 @@ const AuthContextProvider = ({children}) => {
         return () => subscription.unsubscribe();
     }, [dbCourier])
 
-    // console.log('dbCourier', dbCourier);
-
     return (
         <AuthContext.Provider value={{
             authUser,
