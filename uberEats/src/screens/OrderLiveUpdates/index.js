@@ -1,12 +1,11 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import MapView from 'react-native-maps';
 
 const OrderLiveUpdates = () => {
     return (
         <View>
-            <Text>
-                byrookas 🚀
-            </Text>
+            <MapView className="h-full w-full" />
         </View>
     );
 };
