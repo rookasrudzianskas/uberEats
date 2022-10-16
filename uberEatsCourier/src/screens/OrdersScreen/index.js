@@ -7,11 +7,13 @@ import {Entypo} from "@expo/vector-icons";
 import {DataStore} from "aws-amplify";
 import {Order} from "../../models";
 import CustomMarker from "../../components/CustomMarker";
+import * as Location from "expo-location";
 
 const OrdersScreen = () => {
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
     const [orders, setOrders] = useState([]);
+    const [driverLocation, setDriverLocation] = useState(null);
 
     const fetchOrders = () => {
         DataStore.query(Order, (order) => order.status('eq', "READY_FOR_PICKUP")).then(setOrders);
@@ -20,7 +22,6 @@ const OrdersScreen = () => {
     useEffect(() => {
         // query DataStore model Order and then set Orders state
         fetchOrders();
-
         const subscription = DataStore.observe(Order).subscribe((msg) => {
             if(msg.opType === "UPDATE") {
                 fetchOrders();
@@ -29,10 +30,40 @@ const OrdersScreen = () => {
         return () => subscription.unsubscribe();
     }, []);
 
+    useEffect(() => {
+        (async () => {
+            let {status} = await Location.requestForegroundPermissionsAsync();
+            if (!status === 'granted') {
+                Alert.alert('Permission to access location was denied');
+                return;
+            }
+            let location = await Location.getCurrentPositionAsync();
+            setDriverLocation({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+            });
+        })();
+
+    }, []);
+
+    if(!driverLocation) {
+        return (
+            <View className="bg-gray-100 h-screen justify-center items-center">
+                <ActivityIndicator />
+            </View>
+        )
+    }
+
     return (
         <View className="bg-gray-100 h-screen">
             {/* showsUserLocation followsUserLocation TODO can be added as well. */}
             <MapView
+                initialRegion={{
+                    latitude: driverLocation?.latitude,
+                    longitude: driverLocation?.longitude,
+                    latitudeDelta: 0.07,
+                    longitudeDelta: 0.07,
+                }}
                 style={{}} showsUserLocation followsUserLocatio className="h-full w-full" >
                 {orders.map((order, index) => (
                     <CustomMarker data={order?.Restaurant} type={"RESTAURANT"} key={order?.id}/>
