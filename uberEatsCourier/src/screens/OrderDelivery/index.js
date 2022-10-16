@@ -95,9 +95,13 @@ const OrderDelivery = () => {
                     strokeColor="#1aa260"
                 />
                 <CustomMarker
-                    title={order?.Restaurant?.name}
-                    description={order?.Restaurant?.address}
+                    data={order.Restaurant}
                     type={'RESTAURANT'}
+                />
+
+                <CustomMarker
+                    data={user}
+                    type={'USER'}
                 />
                 {/*<Marker*/}
                 {/*    coordinate={{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}}*/}
