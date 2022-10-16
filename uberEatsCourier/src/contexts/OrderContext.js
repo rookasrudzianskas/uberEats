@@ -16,13 +16,27 @@ const OrderContextProvider = ({ children }) => {
         if(!id) {
             setOrder(null);
             return;
-        };
+        }
         const fetchedOrder = await DataStore.query(Order, id);
         setOrder(fetchedOrder);
         DataStore.query(User, fetchedOrder.userID).then(setUser);
         DataStore.query(OrderDish, (od) => od.orderID("eq", fetchedOrder.id)).then(setDishes);
         setOrder(fetchedOrder);
     }
+
+    useEffect(() => {
+        if(!order) return;
+        const subscription = DataStore.observe(Order, order.id).subscribe(({opType, element}) => {
+            // console.log(msg);
+            // console.log("ORder has been updated!", element)
+            if(opType === "UPDATE") {
+                console.log("ORder has been updated!", element)
+                setOrder((existingOrder) => ({...existingOrder, ...element}));
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, [order?.id]);
 
     const acceptOrder = async () => {
         // update the order, and change the status and assign the driver to the order
