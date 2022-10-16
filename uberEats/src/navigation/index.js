@@ -44,7 +44,7 @@ const HomeTabs = () => {
             <Tab.Screen name="Home" component={HomeStackComponent} options={{
                 tabBarIcon: ({color}) => <Foundation name="home" size={24} color={color} />
             }} />
-            <Tab.Screen name="Orders" component={OrderStackNavigator} options={{
+            <Tab.Screen name="OrdersTab" component={OrderStackNavigator} options={{
                 tabBarIcon: ({color}) => <MaterialIcons name="list-alt" size={24} color={color} />
             }} />
             <Tab.Screen name="Profile" component={ProfileScreen} options={{
@@ -84,7 +84,7 @@ const OrdersStack = createNativeStackNavigator();
 const OrderStackNavigator = () => {
     return (
         <OrdersStack.Navigator>
-            <OrdersStack.Screen name="OrdersScreen" component={OrdersScreen} />
+            <OrdersStack.Screen name="Orders" component={OrdersScreen} />
             <OrdersStack.Screen name="Order" component={OrderDetailsNavigator} screenOptions={{
                 headerShown: false
             }} />
