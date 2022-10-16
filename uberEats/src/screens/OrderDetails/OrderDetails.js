@@ -6,10 +6,8 @@ import BasketDishItem from "../../components/BasketDishItem";
 import {useOrderContext} from "../../contexts/OrderContext";
 import {useRoute} from "@react-navigation/native";
 
-const OrderDetails = () => {
+const OrderDetails = ({id}) => {
     const {getOrder} = useOrderContext();
-    const route = useRoute();
-    const id = route.params?.id;
     const [order, setOrder] = useState(null);
     useEffect(() => {
         getOrder(id).then(setOrder);

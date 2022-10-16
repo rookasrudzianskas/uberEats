@@ -8,8 +8,12 @@ const OrderDetailsNavigator = ({route}) => {
     const id = route?.params?.id;
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Details" component={() => <OrderDetails id={id} />} />
-            <Tab.Screen name="Updates" component={() => <OrderLiveUpdates id={id} />} />
+            <Tab.Screen name="Details">
+                {() => <OrderDetails id={id}/>}
+            </Tab.Screen>
+            <Tab.Screen name="Updates" >
+                {() => <OrderLiveUpdates id={id}/>}
+            </Tab.Screen>
         </Tab.Navigator>
     );
 }
