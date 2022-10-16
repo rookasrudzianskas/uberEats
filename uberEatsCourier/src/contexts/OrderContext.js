@@ -41,7 +41,6 @@ const OrderContextProvider = ({ children }) => {
                 updated.status = "PICKED_UP"; // update to the COMPLETE
             })
         );
-        console.log(updatedOrder);
         setOrder(updatedOrder);
     };
 
@@ -52,7 +51,6 @@ const OrderContextProvider = ({ children }) => {
                 updated.Courier = dbCourier;
             })
         )
-        console.log("Updated Order >>>> #2", updatedOrder);
         setOrder(updatedOrder);
     };
 
