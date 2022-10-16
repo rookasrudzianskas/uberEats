@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {AntDesign, FontAwesome, Ionicons} from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
 import {useOrderContext} from "../../contexts/OrderContext";
+import {useNavigation} from "@react-navigation/native";
 
 const STATUS_TO_TITLE  = {
     "READY_FOR_PICKUP": "Accept Order",
@@ -12,13 +13,15 @@ const STATUS_TO_TITLE  = {
 
 const BottomSheetDetails = (props) => {
     const {totalKm, totalMinutes, mapRef} = props;
+    const navigation = useNavigation();
     const isDriverClose = totalKm <= 1; // decrease for higher accuracy
     const { order, user, dishes, acceptOrder, completeOrder, pickUpOrder } = useOrderContext();
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(() => ["12%", "95%"], []);
 
     const onButtonPressed = async () => {
-        if (order?.status === "READY_FOR_PICKUP") {
+        const {status} = order;
+        if (status === "READY_FOR_PICKUP") {
             bottomSheetRef.current?.collapse();
             mapRef.current.animateToRegion({
                 latitude: driverLocation.latitude,
@@ -28,11 +31,11 @@ const BottomSheetDetails = (props) => {
             });
             acceptOrder();
         }
-        if (order?.status === "ACCEPTED") {
+        if (status === "ACCEPTED") {
             bottomSheetRef.current?.collapse();
             pickUpOrder();
         }
-        if (order?.status === "PICKED_UP") {
+        if (status === "PICKED_UP") {
             await completeOrder();
             bottomSheetRef.current?.collapse();
             navigation.goBack();
