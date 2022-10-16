@@ -15,6 +15,16 @@ const OrderLiveUpdates = ({id}) => {
     }, []);
 
     useEffect(() => {
+        if(!order) return;
+        const subscription = DataStore.observe(Order, order.id).subscribe((msg) => {
+            if(msg.opType === 'UPDATE') {
+                setOrder(msg.element);
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, [order]);
+
+    useEffect(() => {
         if(order?.orderCourierId) {
             DataStore.query(Courier, order.orderCourierId).then(setCourier);
         }
