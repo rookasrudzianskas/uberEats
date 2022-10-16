@@ -17,6 +17,7 @@ const AuthContextProvider = ({children}) => {
     const sub = authUser?.attributes?.sub;
 
     useEffect(() => {
+        if(!sub) return;
         DataStore.query(Courier, (courier) => courier.sub('eq', sub)).then((couriers) => {
             setDbCourier(couriers[0]);
             setLoading(false);
