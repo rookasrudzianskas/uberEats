@@ -34,7 +34,7 @@ const BottomSheetDetails = (props) => {
             await completeOrder();
             bottomSheetRef.current?.collapse();
             navigation.goBack();
-            console.warn('Order Delivered');
+            // console.warn('Order Delivered');
         }
     }
 
