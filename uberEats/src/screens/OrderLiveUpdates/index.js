@@ -32,20 +32,20 @@ const OrderLiveUpdates = ({id}) => {
     }, [courier?.lng, courier?.lat]);
 
     useEffect(() => {
-        if(courier) {
-            DataStore.observe(Courier, courier.id).subscribe((msg) => {
-                if(msg.opType === 'UPDATE') {
-                    setCourier(msg.element);
-                }
-            })
-        }
+        if(!courier) return;
+        const subscription = DataStore.observe(Courier, courier.id).subscribe((msg) => {
+            if(msg.opType === 'UPDATE') {
+                setCourier(msg.element);
+            }
+        });
+        return () => subscription.unsubscribe();
     }, []);
 
 
     return (
         <View>
             <Text className="text-center text-xl bg-transparent py-1 font-semibold">Status: {order?.status || 'Loading...'}</Text>
-            <MapView ref={mapRef} className="h-full w-full" >
+            <MapView showsUserLocation={true} ref={mapRef} className="h-full w-full" >
                 {courier?.lat && (
                     <Marker
                         coordinate={{
