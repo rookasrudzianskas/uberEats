@@ -9,8 +9,9 @@ import {ActivityIndicator, View} from "react-native";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
-    const {dbCourier} = useAuthContext();
-    if(dbCourier === null) {
+    const {dbCourier, loading} = useAuthContext();
+
+    if(loading) {
         return (
             <View className="bg-gray-100 h-screen justify-center items-center">
                 <ActivityIndicator />

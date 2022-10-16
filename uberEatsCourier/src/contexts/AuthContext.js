@@ -8,6 +8,7 @@ const AuthContext = createContext({});
 const AuthContextProvider = ({children}) => {
     const [authUser, setAuthUser] = useState(null);
     const [dbCourier, setDbCourier] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthUser);
@@ -16,7 +17,10 @@ const AuthContextProvider = ({children}) => {
     const sub = authUser?.attributes?.sub;
 
     useEffect(() => {
-        DataStore.query(Courier, (courier) => courier.sub('eq', sub)).then((couriers) => setDbCourier(couriers[0]));
+        DataStore.query(Courier, (courier) => courier.sub('eq', sub)).then((couriers) => {
+            setDbCourier(couriers[0]);
+            setLoading(false);
+        });
     }, [sub]);
 
     // console.log('dbCourier', dbCourier);
@@ -26,7 +30,8 @@ const AuthContextProvider = ({children}) => {
             authUser,
             dbCourier,
             sub,
-            setDbCourier
+            setDbCourier,
+            loading,
         }}>
             {children}
         </AuthContext.Provider>
