@@ -17,6 +17,7 @@ const Navigation = () => {
             </View>
         )
     }
+
     return (
         <Stack.Navigator>
             {dbCourier ? (
