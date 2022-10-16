@@ -13,9 +13,20 @@ const OrdersScreen = () => {
     const snapPoints = useMemo(() => ["12%", "95%"], []);
     const [orders, setOrders] = useState([]);
 
+    const fetchOrders = () => {
+        DataStore.query(Order, (order) => order.status('eq', "READY_FOR_PICKUP")).then(setOrders);
+    }
+
     useEffect(() => {
         // query DataStore model Order and then set Orders state
-        DataStore.query(Order, (order) => order.status('eq', "READY_FOR_PICKUP")).then(setOrders);
+        fetchOrders();
+
+        const subscription = DataStore.observe(Order).subscribe((msg) => {
+            if(msg.opType === "UPDATE") {
+                fetchOrders();
+            }
+        });
+        return () => subscription.unsubscribe();
     }, []);
 
     return (
