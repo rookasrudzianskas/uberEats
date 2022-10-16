@@ -6,7 +6,7 @@ const OrderListItem = ({order}) => {
     const navigation = useNavigation();
 
     const onPress = () => {
-        navigation.navigate('Order', {screen: "Details", params: {id: order.id}});
+        navigation.navigate('Order', {id: order.id});
     }
 
     return (
