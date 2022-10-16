@@ -42,13 +42,14 @@ const OrderContextProvider = ({ children }) => {
         ).then(setOrder);
     };
 
-    const completeOrder = () => {
-        DataStore.save(
+    const completeOrder = async () => {
+        const updatedOrder = await DataStore.save(
             Order.copyOf(order, (updated) => {
                 updated.status = "COMPLETED";
                 updated.Courier = dbCourier;
             })
-        ).then(setOrder);
+        )
+        setOrder(updatedOrder);
     };
 
     return (
