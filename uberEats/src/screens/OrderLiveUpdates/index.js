@@ -31,6 +31,16 @@ const OrderLiveUpdates = ({id}) => {
         }
     }, [courier?.lng, courier?.lat]);
 
+    useEffect(() => {
+        if(courier) {
+            DataStore.observe(Courier, courier.id).subscribe((msg) => {
+                if(msg.opType === 'UPDATE') {
+                    setCourier(msg.element);
+                }
+            })
+        }
+    }, []);
+
 
     return (
         <View>
