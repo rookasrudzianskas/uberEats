@@ -19,6 +19,8 @@ Amplify.configure({
     }
 });
 
+// hello, is it me you're looking for?
+
 const App = () => {
     return (
         <GestureHandlerRootView style={{flex: 1}}>
