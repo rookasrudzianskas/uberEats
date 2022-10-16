@@ -39,7 +39,7 @@ const OrderLiveUpdates = ({id}) => {
             }
         });
         return () => subscription.unsubscribe();
-    }, []);
+    }, [order?.orderCourierId]);
 
 
     return (
