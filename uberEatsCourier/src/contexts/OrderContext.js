@@ -27,11 +27,8 @@ const OrderContextProvider = ({ children }) => {
     useEffect(() => {
         if(!order) return;
         const subscription = DataStore.observe(Order, order.id).subscribe(({opType, element}) => {
-            // console.log(msg);
-            // console.log("ORder has been updated!", element)
             if(opType === "UPDATE") {
-                console.log("ORder has been updated!", element)
-                setOrder((existingOrder) => ({...existingOrder, ...element}));
+                fetchOrder(element.id);
             }
         });
 
