@@ -8,6 +8,7 @@ import MapViewDirections from "react-native-maps-directions";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {useOrderContext} from "../../contexts/OrderContext";
 import BottomSheetDetails from "./BottomSheetDetails";
+import CustomMarker from "./CustomMarker";
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDo6743znNCjibvfor86BXmOr84tJM_H4s';
 
@@ -93,24 +94,29 @@ const OrderDelivery = () => {
                     strokeWidth={5}
                     strokeColor="#1aa260"
                 />
-                <Marker
-                    coordinate={{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}}
+                <CustomMarker
                     title={order?.Restaurant?.name}
                     description={order?.Restaurant?.address}
-                >
-                    <TouchableOpacity activeOpacity={0.7} className="bg-green-500 p-1 rounded-full">
-                        <Entypo name="shop" size={22} color="white" />
-                    </TouchableOpacity>
-                </Marker>
-                <Marker
-                    coordinate={deliveryLocation}
-                    title={user?.name}
-                    description={user?.address}
-                >
-                    <TouchableOpacity activeOpacity={0.7} className="bg-blue-500 p-1 rounded-full">
-                        <Entypo name="home" size={22} color="white" />
-                    </TouchableOpacity>
-                </Marker>
+                    type={'RESTAURANT'}
+                />
+                {/*<Marker*/}
+                {/*    coordinate={{latitude: order?.Restaurant?.lat, longitude: order?.Restaurant?.lng}}*/}
+                {/*    title={order?.Restaurant?.name}*/}
+                {/*    description={order?.Restaurant?.address}*/}
+                {/*>*/}
+                {/*    <TouchableOpacity activeOpacity={0.7} className="bg-green-500 p-1 rounded-full">*/}
+                {/*        <Entypo name="shop" size={22} color="white" />*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</Marker>*/}
+                {/*<Marker*/}
+                {/*    coordinate={deliveryLocation}*/}
+                {/*    title={user?.name}*/}
+                {/*    description={user?.address}*/}
+                {/*>*/}
+                {/*    <TouchableOpacity activeOpacity={0.7} className="bg-blue-500 p-1 rounded-full">*/}
+                {/*        <Entypo name="home" size={22} color="white" />*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</Marker>*/}
                 {orders.map((order, index) => (
                     <Marker key={index} title={order?.Restaurant?.name}
                             description={order?.Restaurant?.address} coordinate={{
