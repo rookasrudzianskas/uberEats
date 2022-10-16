@@ -7,6 +7,7 @@ import {useOrderContext} from "../../contexts/OrderContext";
 const OrdersScreen = () => {
     // const restaurant = restaurants[0].dishes;
     const { orders } = useOrderContext();
+    console.log(orders);
     return (
         <View>
             <FlatList
