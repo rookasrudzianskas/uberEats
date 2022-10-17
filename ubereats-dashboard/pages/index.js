@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import {Card, Descriptions, Divider, List, Button} from 'antd';
+import dishes from '../assets/data/dashboard/dishes.json';
 
 export default function Home() {
   return (
@@ -10,8 +11,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Card title={'Order Title'}>
-
+      <Card title={'Order Title'} style={{margin: 20}}>
+            <Descriptions bordered column={{lg: 1, md: 1, sm: 1}}>
+                <Descriptions.Item label={'Customer'}>Rokas Rudzianskas</Descriptions.Item>
+                <Descriptions.Item label={'Customer Address'}>Address 16, Nutella Street</Descriptions.Item>
+            </Descriptions>
+          <Divider />
+          <List dataSource={dishes} renderItem={(dishItem) => (
+              <List.Item>
+                    <div>{dishItem.name}</div>
+              </List.Item>
+          )} />
       </Card>
     </div>
   )
