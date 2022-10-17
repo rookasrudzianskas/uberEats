@@ -1,8 +1,12 @@
 import React from 'react';
 import orders from '../assets/data/dashboard/orders.json';
 import {Card, Table, Tag} from 'antd';
+import {useRouter} from "next/router";
 
 const Orders = ({}) => {
+
+    const router = useRouter();
+
     const renderOrderStatus = (orderStatus) => {
         if(orderStatus === 'Accepted') {
             return <Tag color="green">{orderStatus}</Tag>
@@ -13,8 +17,9 @@ const Orders = ({}) => {
         if(orderStatus === 'Declined') {
             return <Tag color="red">{orderStatus}</Tag>
         }
-        console.log(orderStatus)
+        // console.log(orderStatus)
     }
+
 
     const tableColumns = [
         {
@@ -45,6 +50,8 @@ const Orders = ({}) => {
             <Table
                 dataSource={orders}
                 columns={tableColumns}
+                rowKey={'orderID'}
+                // onRow={(orderItem) => router.push(`${orders.orderID}`)}
             />
         </Card>
     );
