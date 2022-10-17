@@ -35,8 +35,8 @@ const Orders = () => {
     const tableColumns = [
         {
             title: 'Order ID',
-            dataIndex: 'orderID',
-            key: 'orderID',
+            dataIndex: 'id',
+            key: 'id',
         },
         {
             title: 'Delivery Address',
@@ -45,9 +45,9 @@ const Orders = () => {
         },
         {
             title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
-            render: (price) => `${price} $`
+            dataIndex: 'total',
+            key: 'total',
+            render: (price) => `${price?.toFixed(2)} $`
         },
         {
             title: 'Status',
