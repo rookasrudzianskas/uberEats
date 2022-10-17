@@ -21,9 +21,9 @@ const Orders = () => {
     const renderOrderStatus = (orderStatus) => {
         let color = 'gray';
         const statusToColor = {
-            NEW: "green",
-            COOKING: "orange",
-            READY_FOR_PICKUP: "red",
+            [OrderStatus.NEW]: "green",
+            [OrderStatus.COOKING]: "orange",
+            [OrderStatus.READY_FOR_PICKUP]: "red",
         }
         return <Tag color={statusToColor[orderStatus]}>{orderStatus}</Tag>
     }
