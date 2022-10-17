@@ -1,10 +1,18 @@
 import React, {useState} from 'react';
 import {Form, Input, Card, Button} from 'antd';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-google-places-autocomplete';
 
 const Settings = ({}) => {
     const [address, setAddress] = useState(null);
     const [coordinates, setCoordinates] = useState(null);
+
+    const getAddressLatLng = async (address) => {
+        setAddress(address);
+        const geocodedByAddress = await geocodeByAddress(address.label);
+        const latlng = await getLatLng(geocodedByAddress[0]);
+        console.log(latlng);
+    }
+
     return (
         <Card title={'Restaurant Details'} style={{margin: 20}}>
             <Form layout={'vertical'} wrapperCol={{span: 8}}>
@@ -18,7 +26,7 @@ const Settings = ({}) => {
                         apiKey={`AIzaSyANnaCDkJfngBby06ySakU_kapQLlDmF4o`}
                         selectProps={{
                             value: address,
-                            onChange: setAddress,
+                            onChange: getAddressLatLng,
                         }}
                     />
                 </Form.Item>

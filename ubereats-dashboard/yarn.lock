@@ -2026,9 +2026,9 @@ rc-pagination@~3.1.17:
     classnames "^2.2.1"
 
 rc-picker@~2.6.10:
-  version "2.6.10"
-  resolved "https://registry.yarnpkg.com/rc-picker/-/rc-picker-2.6.10.tgz#8d0a473c079388bdb2d7358a2a54c7d5095893b4"
-  integrity sha512-9wYtw0DFWs9FO92Qh2D76P0iojUr8ZhLOtScUeOit6ks/F+TBLrOC1uze3IOu+u9gbDAjmosNWLKbBzx/Yuv2w==
+  version "2.6.11"
+  resolved "https://registry.yarnpkg.com/rc-picker/-/rc-picker-2.6.11.tgz#d4a55e46480517cd1bfea5f5acd28b1d6be232d2"
+  integrity sha512-INJ7ULu+Kj4UgqbcqE8Q+QpMw55xFf9kkyLBHJFk0ihjJpAV4glialRfqHE7k4KX2BWYPQfpILwhwR14x2EiRQ==
   dependencies:
     "@babel/runtime" "^7.10.1"
     classnames "^2.2.1"
@@ -2230,7 +2230,7 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-google-places-autocomplete@^3.4.0:
+react-google-places-autocomplete@^3.3.4:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/react-google-places-autocomplete/-/react-google-places-autocomplete-3.4.0.tgz#6511c28cb2547566c89a37db6b739a85528b5666"
   integrity sha512-8ZStXjyC94FbkST6gzUty6DzvCuzKBmFYgOhKl5is4JfVk4wlXhlWjj9HIDNXB3waPhcU9ILwvXzHf+ohvqU7w==
