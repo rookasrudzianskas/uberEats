@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card, Table, Tag} from 'antd';
 import {useRouter} from "next/router";
 import {DataStore} from "aws-amplify";
-import {Order} from "../src/models";
+import {Order, OrderStatus} from "../src/models";
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
@@ -19,16 +19,18 @@ const Orders = () => {
     }, []);
 
     const renderOrderStatus = (orderStatus) => {
-        if(orderStatus === 'Accepted') {
-            return <Tag color="green">{orderStatus}</Tag>
+        let color = 'gray';
+        if(orderStatus === OrderStatus.NEW) {
+            color = 'green';
         }
-        if(orderStatus === 'Pending') {
-            return <Tag color="gold">{orderStatus}</Tag>
+        if(orderStatus === OrderStatus.COOKING) {
+            color = 'orange';
         }
-        if(orderStatus === 'Declined') {
-            return <Tag color="red">{orderStatus}</Tag>
+        if(orderStatus === OrderStatus.READY_FOR_PICKUP) {
+            color = 'red';
         }
-        // console.log(orderStatus)
+
+        return <Tag color={color}>{orderStatus}</Tag>
     }
 
 
