@@ -30,11 +30,11 @@ const DetailedOrder = ({}) => {
 
     useEffect(() => {
         fetchUser();
-        const subscription = DataStore.observe(User, order.userID).subscribe(() => fetchUser());
+        const subscription = DataStore.observe(User).subscribe(() => fetchUser());
         return () => subscription.unsubscribe();
     }, [order?.userID]);
 
-    console.log("user", customer);
+    // console.log("user", customer);
 
     return (
         <div>
