@@ -7,6 +7,8 @@ import SideMenu from "../components/SideMenu";
 import {useRouter} from "next/router";
 import awsconfig from '../src/aws-exports';
 import {Amplify} from "aws-amplify";
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 Amplify.configure({
     ...awsconfig,
@@ -32,4 +34,4 @@ const Home = () => {
 }
 
 
-export default Home;
+export default withAuthenticator(Home);
