@@ -1,11 +1,15 @@
 import React from 'react';
 import {Button, Card, Descriptions, Divider, List} from "antd";
 import dishes from "../../assets/data/dashboard/dishes.json";
+import {useRouter} from "next/router";
 
 const DetailedOrder = ({}) => {
+    const { query } = useRouter();
+    const id = query.orderDetails;
+
     return (
         <div>
-            <Card title={'Order Title'} style={{margin: 20}}>
+            <Card title={`Order ${id || 'Loading...'}`} style={{margin: 20}}>
                 <Descriptions bordered column={{lg: 1, md: 1, sm: 1}}>
                     <Descriptions.Item label={'Customer'}>Rokas Rudzianskas</Descriptions.Item>
                     <Descriptions.Item label={'Customer Address'}>Address 16, Nutella Street</Descriptions.Item>
