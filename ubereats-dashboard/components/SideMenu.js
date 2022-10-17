@@ -34,9 +34,10 @@ const SideMenu = ({}) => {
         if (menuItem.key === 'logout') {
             // logout
             await Auth.signOut();
-            router.push('/');
+            window.location.reload();
+            await router.push('/');
         } else {
-            router.push(`/${menuItem?.key}`)
+            await router.push(`/${menuItem?.key}`)
         }
     }
 
