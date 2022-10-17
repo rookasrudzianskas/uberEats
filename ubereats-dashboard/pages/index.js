@@ -17,8 +17,8 @@ const Home = () => {
             <Image src={'https://logos-world.net/wp-content/uploads/2020/11/Uber-Eats-Symbol-700x394.jpg'} preview={false}/>
         </Sider>
         <Layout>
-            <Content style={{backgroundColor: 'red'}}>
-                <span>Rokas</span>
+            <Content style={{}}>
+                <Orders />
             </Content>
                 <Footer style={{textAlign: 'center'}}>
                     Uber Eats Restaurant Dashboard ©2022
