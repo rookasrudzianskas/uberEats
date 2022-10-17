@@ -2,6 +2,7 @@ import Head from 'next/head'
 import '../styles/Home.module.css';
 import Orders from "../components/Orders";
 import {Layout, Image} from 'antd';
+import OrderDetails from "./order/[orderDetails]";
 
 const Home = () => {
     const {Sider, Content, Footer} = Layout;
@@ -19,6 +20,7 @@ const Home = () => {
         <Layout>
             <Content style={{}}>
                 <Orders />
+                {/*<OrderDetails />*/}
             </Content>
                 <Footer style={{textAlign: 'center'}}>
                     Uber Eats Restaurant Dashboard ©2022
