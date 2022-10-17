@@ -9,7 +9,7 @@ const Settings = ({}) => {
     const [address, setAddress] = useState(null);
     const [coordinates, setCoordinates] = useState(null);
     const [name, setName] = useState(null);
-    const {restaurant, sub} = useRestaurantContext();
+    const {restaurant, setRestaurant, sub} = useRestaurantContext();
 
     const getAddressLatLng = async (address) => {
         setAddress(address);
@@ -22,7 +22,7 @@ const Settings = ({}) => {
         // console.log("address", address);
         // console.log("coordinates", coordinates);
         // console.log("name", name);
-        await DataStore.save(new Restaurant({
+        const newRestaurant = await DataStore.save(new Restaurant({
             name: name,
             image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg',
             deliveryFee: 0,
@@ -33,6 +33,7 @@ const Settings = ({}) => {
             lng: coordinates.lng,
             adminSub: sub,
         }));
+        setRestaurant(newRestaurant);
     }
 
     return (
