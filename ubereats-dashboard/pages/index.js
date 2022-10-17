@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import {Card, Descriptions, Divider, List, Button} from 'antd';
 
 export default function Home() {
   return (
@@ -9,9 +10,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <Card title={'Order Title'}>
 
-      </main>
+      </Card>
     </div>
   )
 }
