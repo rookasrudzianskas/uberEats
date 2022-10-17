@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import {Card, Descriptions, Divider, List, Button} from 'antd';
 import dishes from '../assets/data/dashboard/dishes.json';
+import '../styles/Home.module.css';
+const Home = () => {
 
-export default function Home() {
+    // does it work?
   return (
     <div>
       <Head>
@@ -23,7 +25,42 @@ export default function Home() {
                     <div>${dishItem?.price || 'Loading...'}</div>
               </List.Item>
           )} />
+          <Divider />
+          <div style={styles.totalSumContainer}>
+              <h2>Total:</h2>
+              <h2 style={styles.totalPrice}>$45.45</h2>
+          </div>
+          <Divider />
+          <div style={styles.buttonsContainer}>
+              <Button block type={'danger'} size={'large'} style={styles.button}>
+                  Decline Order
+              </Button>
+              <Button block type={'primary'} size={'large'} style={styles.button}>
+                  Accept Order
+              </Button>
+          </div>
       </Card>
     </div>
   )
 }
+
+const styles = {
+    totalSumContainer: {
+        flexDirection: 'row',
+        display: 'flex',
+    },
+    totalPrice: {
+        marginLeft: 'auto',
+        fontWeight: 'bold'
+    },
+    buttonsContainer: {
+        display: 'flex',
+        paddingBottom: 30
+    },
+    button: {
+        marginRight: 20,
+        marginLeft: 20,
+    }
+}
+
+export default Home;
