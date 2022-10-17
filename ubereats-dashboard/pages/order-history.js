@@ -11,7 +11,7 @@ const OrderHistory = ({}) => {
 
     const fetchOrders = async () => {
         const orders = await DataStore.query(Order, (order) =>
-            order.orderRestaurantId("eq", restaurant.id).or(orderStatus => orderStatus.status("eq", "NEW").status("eq", "COOKING").status("eq", "READY_FOR_PICKUP"))
+            order.orderRestaurantId("eq", restaurant.id).or(orderStatus => orderStatus.status("eq", "PICKED_UP").status("eq", "COMPLETED").status("eq", "DECLINED_BY_RESTAURANT"))
         );
         setOrders(orders);
     }
@@ -26,9 +26,9 @@ const OrderHistory = ({}) => {
     const renderOrderStatus = (orderStatus) => {
         let color = 'gray';
         const statusToColor = {
-            [OrderStatus.NEW]: "green",
-            [OrderStatus.COOKING]: "orange",
-            [OrderStatus.READY_FOR_PICKUP]: "red",
+            [OrderStatus.PICKED_UP]: "orange",
+            [OrderStatus.COMPLETED]: "green",
+            [OrderStatus.DECLINED_BY_RESTAURANT]: "red",
         }
         return <Tag color={statusToColor[orderStatus]}>{orderStatus}</Tag>
     }
@@ -36,25 +36,25 @@ const OrderHistory = ({}) => {
     const tableColumns = [
         {
             title: 'Order ID',
-            dataIndex: 'orderID',
-            key: 'orderID',
+            dataIndex: 'id',
+            key: 'id',
         },
         {
-            title: 'Delivery Address',
-            dataIndex: 'deliveryAddress',
-            key: 'deliveryAddress',
+            title: 'Created at',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
         },
         {
             title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
-            render: (price) => `${price} $`
+            dataIndex: 'total',
+            key: 'total',
+            render: (price) => `${price?.toFixed(2)} $`
         },
         {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            render: (status) => <Tag color={status === 'Delivered' ? 'green' : 'red'}>{status}</Tag>
+            render: renderOrderStatus
         }
     ];
 

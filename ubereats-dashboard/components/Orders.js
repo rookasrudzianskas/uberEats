@@ -11,7 +11,7 @@ const Orders = () => {
 
     const fetchOrders = async () => {
         const orders = await DataStore.query(Order, (order) =>
-            order.orderRestaurantId("eq", restaurant.id).or(orderStatus => orderStatus.status("eq", "NEW").status("eq", "COOKING").status("eq", "READY_FOR_PICKUP"))
+            order.orderRestaurantId("eq", restaurant.id).or(orderStatus => orderStatus.status("eq", "NEW").status("eq", "COOKING").status("eq", "READY_FOR_PICKUP").status("eq", "ACCEPTED"))
         );
         setOrders(orders);
     }
@@ -29,6 +29,7 @@ const Orders = () => {
             [OrderStatus.NEW]: "green",
             [OrderStatus.COOKING]: "orange",
             [OrderStatus.READY_FOR_PICKUP]: "red",
+            [OrderStatus.ACCEPTED]: "purple",
         }
         return <Tag color={statusToColor[orderStatus]}>{orderStatus}</Tag>
     }
