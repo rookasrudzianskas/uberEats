@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, Input, Card, Button} from 'antd';
+import {Form, Input, Card, Button, message} from 'antd';
 import GooglePlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-google-places-autocomplete';
 import {DataStore} from "aws-amplify";
 import {Restaurant} from "../src/models";
@@ -34,6 +34,7 @@ const Settings = ({}) => {
             adminSub: sub,
         }));
         setRestaurant(newRestaurant);
+        message.success('Wooohoo! Restaurant created successfully!');
     }
 
     return (
