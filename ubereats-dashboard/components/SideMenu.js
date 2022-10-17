@@ -1,10 +1,19 @@
 import React from 'react';
+import {Menu} from 'antd';
 
 const SideMenu = ({}) => {
+    const menuItems = [
+        {
+            key: '/',
+            label: 'Orders',
+        },
+        {
+            key: '/menu',
+            label: 'Menu',
+        },
+    ]
     return (
-        <div>
-            
-        </div>
+        <Menu items={menuItems} />
     );
 };
 

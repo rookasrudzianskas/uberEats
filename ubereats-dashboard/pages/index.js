@@ -3,6 +3,7 @@ import '../styles/Home.module.css';
 import Orders from "../components/Orders";
 import {Layout, Image} from 'antd';
 import OrderDetails from "./order/[orderDetails]";
+import SideMenu from "../components/SideMenu";
 
 const Home = () => {
     const {Sider, Content, Footer} = Layout;
@@ -16,6 +17,7 @@ const Home = () => {
       </Head>
         <Sider style={{height: '100vh', backgroundColor: 'white'}}>
             <Image src={'https://logos-world.net/wp-content/uploads/2020/11/Uber-Eats-Symbol-700x394.jpg'} preview={false}/>
+            <SideMenu />
         </Sider>
         <Layout>
             <Content style={{}}>
