@@ -76,7 +76,6 @@ const Settings = ({}) => {
                 </Form.Item>
 
                 <Form.Item label={'Restaurant Address'} required={true}>
-                    {/*<Input placeholder={'Enter restaurant name here'}/>*/}
                     <GooglePlacesAutocomplete
                         apiKey={`AIzaSyANnaCDkJfngBby06ySakU_kapQLlDmF4o`}
                         selectProps={{
