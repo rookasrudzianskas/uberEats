@@ -1,5 +1,5 @@
 // create Restaurant Context
-import {createContext, useState, useEffect} from "react";
+import {createContext, useState, useEffect, useContext} from "react";
 import {Auth, DataStore} from "aws-amplify";
 import {Order, Restaurant} from "../src/models";
 
@@ -32,7 +32,7 @@ const RestaurantContextProvider = ({ children }) => {
 
     return (
         <RestaurantContext.Provider value={{
-
+            restaurant,
         }}>
             {children}
         </RestaurantContext.Provider>
@@ -40,3 +40,5 @@ const RestaurantContextProvider = ({ children }) => {
 }
 
 export default RestaurantContextProvider;
+
+export const useRestaurantContext = () => useContext(RestaurantContext);
