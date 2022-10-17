@@ -12,6 +12,10 @@ const Settings = ({}) => {
                 <Form.Item label={'Restaurant Address'} required={true}>
                     {/*<Input placeholder={'Enter restaurant name here'}/>*/}
                 </Form.Item>
+
+                <Form.Item>
+                    <Button type={'primary'}>Submit</Button>
+                </Form.Item>
             </Form>
         </Card>
     );
