@@ -15,14 +15,15 @@ const Settings = ({}) => {
     }
 
     const onSubmit = async () => {
-        console.log("address", address);
-        console.log("coordinates", coordinates);
-        console.log("name", name);
+        // console.log("address", address);
+        // console.log("coordinates", coordinates);
+        // console.log("name", name);
+
     }
 
     return (
         <Card title={'Restaurant Details'} style={{margin: 20}}>
-            <Form layout={'vertical'} wrapperCol={{span: 8}}>
+            <Form onFinish={onSubmit} layout={'vertical'} wrapperCol={{span: 8}}>
                 <Form.Item label={'Restaurant Name'} required={true}>
                     <Input value={name} onChange={(e) => setName(e.target.value)} placeholder={'Enter restaurant name here'}/>
                 </Form.Item>
@@ -39,7 +40,7 @@ const Settings = ({}) => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type={'primary'}>Submit</Button>
+                    <Button type={'primary'} htmlType="submit">Submit</Button>
                 </Form.Item>
             </Form>
             <span>{coordinates?.lat} - {coordinates?.lng}</span>
