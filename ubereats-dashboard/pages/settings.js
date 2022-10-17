@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Input, Card, Button, message} from 'antd';
 import GooglePlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-google-places-autocomplete';
 import {DataStore} from "aws-amplify";
@@ -10,6 +10,14 @@ const Settings = ({}) => {
     const [coordinates, setCoordinates] = useState(null);
     const [name, setName] = useState(null);
     const {restaurant, setRestaurant, sub} = useRestaurantContext();
+
+    useEffect(() => {
+        if(restaurant) {
+            setName(restaurant.name);
+            // setAddress(restaurant.address);
+            // setCoordinates(restaurant.coordinates);
+        }
+    }, [restaurant]);
 
     const getAddressLatLng = async (address) => {
         setAddress(address);
@@ -34,6 +42,9 @@ const Settings = ({}) => {
             adminSub: sub,
         }));
         setRestaurant(newRestaurant);
+        setAddress(null);
+        setCoordinates(null);
+        setName(null);
         message.success('Wooohoo! Restaurant created successfully!');
     }
 
