@@ -39,6 +39,9 @@ const Home = () => {
                   Accept Order
               </Button>
           </div>
+          <Button block type={'primary'} size={'large'}>
+              Food Is Done
+          </Button>
       </Card>
     </div>
   )
