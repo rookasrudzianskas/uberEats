@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@aws-amplify/ui-react": "^3.5.8",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "antd": "^4.23.5",
+    "aws-amplify": "^4.3.39",
     "next": "12.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

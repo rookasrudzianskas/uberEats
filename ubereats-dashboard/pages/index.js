@@ -5,13 +5,19 @@ import {Layout, Image} from 'antd';
 import OrderDetails from "./order/[orderDetails]";
 import SideMenu from "../components/SideMenu";
 import {useRouter} from "next/router";
+import awsconfig from '../src/aws-exports';
+import {Amplify} from "aws-amplify";
+
+Amplify.configure({
+    ...awsconfig,
+    Analytics: {
+        disabled: true,
+    }
+});
 
 const Home = () => {
     const {Sider, Content, Footer} = Layout;
     const router = useRouter();
-    // console.log(router.pathname);
-    // console.log(typeof router.pathname);
-    // does it work?
   return (
       <>
           {router.pathname === '/' ? (
