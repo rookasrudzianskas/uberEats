@@ -1,9 +1,27 @@
-import React from 'react';
-import orders from '../assets/data/dashboard/orders.json';
+import React, {useEffect, useState} from 'react';
 import {Card, Table, Tag} from 'antd';
 import {useRouter} from "next/router";
+import {DataStore} from "aws-amplify";
+import {Order} from "../src/models";
 
-const Orders = ({}) => {
+const Orders = () => {
+    const [orders, setOrders] = useState([]);
+
+    const fetchOrders = async () => {
+        const orders = await DataStore.query(Order);
+        setOrders(orders);
+    }
+
+    useEffect(() => {
+        fetchOrders();
+        const subscription = DataStore.observe(Order).subscribe(() => fetchOrders());
+        return () => subscription.unsubscribe();
+    }, []);
+
+    // console.log(orders);
+
+    // console.log(orders);
+
     const renderOrderStatus = (orderStatus) => {
         if(orderStatus === 'Accepted') {
             return <Tag color="green">{orderStatus}</Tag>
@@ -60,4 +78,3 @@ const Orders = ({}) => {
 
 export default Orders;
 // by Rokas with ❤️
-// router.push(`${orderItem.orderID}`)
