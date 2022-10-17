@@ -10,7 +10,8 @@ const Settings = ({}) => {
         setAddress(address);
         const geocodedByAddress = await geocodeByAddress(address.label);
         const latlng = await getLatLng(geocodedByAddress[0]);
-        console.log(latlng);
+        // console.log(latlng);
+        setCoordinates(latlng);
     }
 
     return (
@@ -35,6 +36,7 @@ const Settings = ({}) => {
                     <Button type={'primary'}>Submit</Button>
                 </Form.Item>
             </Form>
+            <span>{coordinates?.lat} - {coordinates?.lng}</span>
         </Card>
     );
 };
