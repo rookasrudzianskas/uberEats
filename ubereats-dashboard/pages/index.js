@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import '../styles/Home.module.css';
 import Orders from "../components/Orders";
-const Home = () => {
+import {Layout, Image} from 'antd';
 
+const Home = () => {
     // does it work?
   return (
     <div>

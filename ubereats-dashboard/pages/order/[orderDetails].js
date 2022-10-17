@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 
 const DetailedOrder = ({}) => {
     const { query } = useRouter();
-    const id = query.orderDetails;
+    const id = query?.orderDetails;
 
     return (
         <div>
