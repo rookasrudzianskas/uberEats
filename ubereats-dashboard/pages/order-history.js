@@ -1,20 +1,36 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, Table, Tag} from "antd";
 import orders from "../assets/data/dashboard/orders-history.json";
+import {useRestaurantContext} from "../contexts/RestaurantContext";
+import {Order, OrderStatus} from "../src/models";
+import {DataStore} from "aws-amplify";
 
 const OrderHistory = ({}) => {
+    const [orders, setOrders] = useState([]);
+    const {restaurant} = useRestaurantContext();
+
+    const fetchOrders = async () => {
+        const orders = await DataStore.query(Order, (order) =>
+            order.orderRestaurantId("eq", restaurant.id).or(orderStatus => orderStatus.status("eq", "NEW").status("eq", "COOKING").status("eq", "READY_FOR_PICKUP"))
+        );
+        setOrders(orders);
+    }
+
+    useEffect(() => {
+        if(!restaurant) return;
+        fetchOrders();
+        const subscription = DataStore.observe(Order).subscribe(() => fetchOrders());
+        return () => subscription.unsubscribe();
+    }, [restaurant]);
 
     const renderOrderStatus = (orderStatus) => {
-        if(orderStatus === 'Accepted') {
-            return <Tag color="green">{orderStatus}</Tag>
+        let color = 'gray';
+        const statusToColor = {
+            [OrderStatus.NEW]: "green",
+            [OrderStatus.COOKING]: "orange",
+            [OrderStatus.READY_FOR_PICKUP]: "red",
         }
-        if(orderStatus === 'Pending') {
-            return <Tag color="gold">{orderStatus}</Tag>
-        }
-        if(orderStatus === 'Declined') {
-            return <Tag color="red">{orderStatus}</Tag>
-        }
-        // console.log(orderStatus)
+        return <Tag color={statusToColor[orderStatus]}>{orderStatus}</Tag>
     }
 
     const tableColumns = [
