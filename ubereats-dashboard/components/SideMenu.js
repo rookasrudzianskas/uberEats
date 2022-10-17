@@ -8,7 +8,7 @@ const SideMenu = ({}) => {
     const router = useRouter();
     const {restaurant} = useRestaurantContext();
 
-    const menuItems = [
+    const mainMenuItems = [
         {
             key: '/',
             label: 'Orders',
@@ -21,6 +21,10 @@ const SideMenu = ({}) => {
             key: 'order-history',
             label: 'Order History',
         },
+    ]
+
+    const menuItems = [
+        ...(restaurant ? mainMenuItems : []),
         {
             key: 'settings',
             label: 'Settings',
