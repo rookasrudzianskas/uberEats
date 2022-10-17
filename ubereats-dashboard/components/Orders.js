@@ -51,7 +51,7 @@ const Orders = ({}) => {
                 columns={tableColumns}
                 rowKey={'orderID'}
                 onRow={(orderItem) => ({
-                    onClick: () => router.push(`/${orderItem?.orderID}`)
+                    onClick: () => router.push(`/order/${orderItem?.orderID}`)
                 })}
             />
         </Card>

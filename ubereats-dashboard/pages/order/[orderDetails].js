@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Card, Descriptions, Divider, List} from "antd";
-import dishes from "../assets/data/dashboard/dishes.json";
+import dishes from "../../assets/data/dashboard/dishes.json";
 
 const DetailedOrder = ({}) => {
     return (
