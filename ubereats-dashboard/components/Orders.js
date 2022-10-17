@@ -20,17 +20,12 @@ const Orders = () => {
 
     const renderOrderStatus = (orderStatus) => {
         let color = 'gray';
-        if(orderStatus === OrderStatus.NEW) {
-            color = 'green';
+        const statusToColor = {
+            NEW: "green",
+            COOKING: "orange",
+            READY_FOR_PICKUP: "red",
         }
-        if(orderStatus === OrderStatus.COOKING) {
-            color = 'orange';
-        }
-        if(orderStatus === OrderStatus.READY_FOR_PICKUP) {
-            color = 'red';
-        }
-
-        return <Tag color={color}>{orderStatus}</Tag>
+        return <Tag color={statusToColor[orderStatus]}>{orderStatus}</Tag>
     }
 
 
