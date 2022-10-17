@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import '../styles/Home.module.css';
-import DetailedOrder from "../components/DetailedOrder";
+import Orders from "../components/Orders";
 const Home = () => {
 
     // does it work?
@@ -12,7 +12,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-        <DetailedOrder />
+        <Orders />
     </div>
   )
 }
