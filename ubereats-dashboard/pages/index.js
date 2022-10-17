@@ -19,7 +19,8 @@ export default function Home() {
           <Divider />
           <List dataSource={dishes} renderItem={(dishItem) => (
               <List.Item>
-                    <div>{dishItem.name}</div>
+                    <div style={{fontWeight: 'bold'}}>{dishItem?.name || 'Loading...'} x{dishItem?.quantity || 'Loading...'}</div>
+                    <div>${dishItem?.price || 'Loading...'}</div>
               </List.Item>
           )} />
       </Card>
