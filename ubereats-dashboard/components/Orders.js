@@ -3,6 +3,19 @@ import orders from '../assets/data/dashboard/orders.json';
 import {Card, Table, Tag} from 'antd';
 
 const Orders = ({}) => {
+    const renderOrderStatus = (orderStatus) => {
+        if(orderStatus === 'Accepted') {
+            return <Tag color="green">{orderStatus}</Tag>
+        }
+        if(orderStatus === 'Pending') {
+            return <Tag color="gold">{orderStatus}</Tag>
+        }
+        if(orderStatus === 'Declined') {
+            return <Tag color="red">{orderStatus}</Tag>
+        }
+        console.log(orderStatus)
+    }
+
     const tableColumns = [
         {
             title: 'Order ID',
@@ -24,6 +37,7 @@ const Orders = ({}) => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
+            render: renderOrderStatus
         }
     ];
     return (

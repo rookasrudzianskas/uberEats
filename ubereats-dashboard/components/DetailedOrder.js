@@ -31,7 +31,7 @@ const DetailedOrder = ({}) => {
                         Accept Order
                     </Button>
                 </div>
-                <Button block type={'primary'} size={'large'}>
+                <Button block color={'green'} type={'primary'} size={'large'}>
                     Food Is Done
                 </Button>
             </Card>
