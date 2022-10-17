@@ -14,6 +14,12 @@ const Settings = ({}) => {
         setCoordinates(latlng);
     }
 
+    const onSubmit = async () => {
+        console.log("address", address);
+        console.log("coordinates", coordinates);
+        console.log("name", name);
+    }
+
     return (
         <Card title={'Restaurant Details'} style={{margin: 20}}>
             <Form layout={'vertical'} wrapperCol={{span: 8}}>
