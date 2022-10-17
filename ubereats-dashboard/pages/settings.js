@@ -27,6 +27,14 @@ const Settings = ({}) => {
     }
 
     const onSubmit = async () => {
+        if(!restaurant) {
+            await createNewRestaurant();
+        } else {
+            await updateRestaurant();
+        }
+    }
+
+    const createNewRestaurant = async () => {
         const newRestaurant = await DataStore.save(new Restaurant({
             name: name,
             image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg',
@@ -43,6 +51,19 @@ const Settings = ({}) => {
         setCoordinates(null);
         setName(null);
         message.success('Wooohoo! Restaurant created successfully!');
+    }
+
+    const updateRestaurant = async () => {
+        const updatedRestaurant = await DataStore.save(
+            Restaurant.copyOf(restaurant, (updated) => {
+                updated.name = name;
+                updated.address = address.label;
+                updated.lat = coordinates.lat;
+                updated.lng = coordinates.lng;
+            })
+        );
+        setRestaurant(updatedRestaurant);
+        message.success('Wooohoo! Restaurant updated successfully!');
     }
 
     return (
