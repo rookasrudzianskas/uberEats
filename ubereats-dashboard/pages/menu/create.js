@@ -1,10 +1,11 @@
 import React from 'react';
+import {Form, Input, Button, Card} from 'antd';
 
 const Create = ({}) => {
     return (
-        <div>
-            
-        </div>
+        <Card title={'New Menu Item'} style={{margin: 20}}>
+
+        </Card>
     );
 };
 
