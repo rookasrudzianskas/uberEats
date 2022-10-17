@@ -21,6 +21,10 @@ const SideMenu = ({}) => {
         {
             key: 'settings',
             label: 'Settings',
+        },
+        {
+            key: 'logout',
+            label: 'Logout',
         }
     ];
 
