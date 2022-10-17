@@ -15,7 +15,7 @@ const Settings = ({}) => {
         if(restaurant) {
             setName(restaurant.name);
             // setAddress(restaurant.address);
-            // setCoordinates(restaurant.coordinates);
+            setCoordinates({lat: restaurant.lat, lng: restaurant.lng});
         }
     }, [restaurant]);
 
@@ -57,9 +57,11 @@ const Settings = ({}) => {
         const updatedRestaurant = await DataStore.save(
             Restaurant.copyOf(restaurant, (updated) => {
                 updated.name = name;
-                updated.address = address.label;
-                updated.lat = coordinates.lat;
-                updated.lng = coordinates.lng;
+                if(address) {
+                    updated.address = address.label;
+                    updated.lat = coordinates.lat;
+                    updated.lng = coordinates.lng;
+                }
             })
         );
         setRestaurant(updatedRestaurant);
