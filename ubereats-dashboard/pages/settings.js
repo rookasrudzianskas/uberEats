@@ -27,9 +27,6 @@ const Settings = ({}) => {
     }
 
     const onSubmit = async () => {
-        // console.log("address", address);
-        // console.log("coordinates", coordinates);
-        // console.log("name", name);
         const newRestaurant = await DataStore.save(new Restaurant({
             name: name,
             image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg',
