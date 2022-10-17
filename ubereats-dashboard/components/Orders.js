@@ -41,9 +41,9 @@ const Orders = () => {
             key: 'id',
         },
         {
-            title: 'Delivery Address',
-            dataIndex: 'deliveryAddress',
-            key: 'deliveryAddress',
+            title: 'Created at',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
         },
         {
             title: 'Price',
