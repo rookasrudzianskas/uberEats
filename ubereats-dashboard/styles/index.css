@@ -18,7 +18,3 @@ li.ant-pagination-item-active a {
 .ant-menu-item-selected span {
     color: white !important;
 }
-
-.ant-menu-item-active span {
-    color: #3fc060 !important;
-}
