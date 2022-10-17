@@ -28,7 +28,6 @@ const RestaurantContextProvider = ({ children }) => {
         const subscription = DataStore.observe(Restaurant).subscribe(() => fetchRestaurants());
         return () => subscription.unsubscribe();
     }, [sub]);
-
     // console.log("restaurant", restaurant);
 
     return (
