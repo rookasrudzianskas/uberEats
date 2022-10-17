@@ -63,7 +63,7 @@ const OrderHistory = ({}) => {
             <Table
                 dataSource={orders}
                 columns={tableColumns}
-                rowKey={'orderID'}
+                rowKey={'id'}
                 onRow={(orderItem) => ({
                     // onClick: () => router.push(`/order/${orderItem?.orderID}`)
                 })}
