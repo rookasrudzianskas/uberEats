@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import {Form, Input, Card, Button} from 'antd';
 import GooglePlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-google-places-autocomplete';
+import {DataStore} from "aws-amplify";
+import {Restaurant} from "../src/models";
+import {useRestaurantContext} from "../contexts/RestaurantContext";
 
 const Settings = ({}) => {
     const [address, setAddress] = useState(null);
     const [coordinates, setCoordinates] = useState(null);
     const [name, setName] = useState(null);
+    const {restaurant, sub} = useRestaurantContext();
 
     const getAddressLatLng = async (address) => {
         setAddress(address);
@@ -18,7 +22,17 @@ const Settings = ({}) => {
         // console.log("address", address);
         // console.log("coordinates", coordinates);
         // console.log("name", name);
-
+        await DataStore.save(new Restaurant({
+            name: name,
+            image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg',
+            deliveryFee: 0,
+            minDeliveryTime: 15,
+            maxDeliveryTime: 120,
+            address: address.label,
+            lat: coordinates.lat,
+            lng: coordinates.lng,
+            adminSub: sub,
+        }));
     }
 
     return (

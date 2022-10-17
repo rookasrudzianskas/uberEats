@@ -33,6 +33,7 @@ const RestaurantContextProvider = ({ children }) => {
     return (
         <RestaurantContext.Provider value={{
             restaurant,
+            sub,
         }}>
             {children}
         </RestaurantContext.Provider>
