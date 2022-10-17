@@ -16,15 +16,10 @@ const RestaurantContextProvider = ({ children }) => {
         });
     }, []);
 
-    useEffect(() => {
-        // fetch restaurant and filter by sub
-    }, [sub]);
-
-
     const fetchRestaurants = async () => {
-        const restaurants = await DataStore.query(Restaurant, (r) => r.adminSub("eq", sub)).then((restaurants) => console.log(restaurants));
-
-        setRestaurant(restaurants);
+        const restaurants = await DataStore.query(Restaurant, (r) => r.adminSub("eq", sub)).then((restaurants) =>
+            setRestaurant(restaurants[0])
+        );
     }
 
     useEffect(() => {
