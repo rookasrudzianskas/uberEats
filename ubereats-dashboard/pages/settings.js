@@ -11,6 +11,7 @@ const Settings = ({}) => {
         const geocodedByAddress = await geocodeByAddress(address.label);
         const latlng = await getLatLng(geocodedByAddress[0]);
         // console.log(latlng);
+        // why does it work? Yes, it works! Thanks! God bless you!
         setCoordinates(latlng);
     }
 
