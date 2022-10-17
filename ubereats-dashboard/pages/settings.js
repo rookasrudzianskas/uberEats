@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form, Input, Card, Button} from 'antd';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 const Settings = ({}) => {
+    const [address, setAddress] = useState(null);
+    const [coordinates, setCoordinates] = useState(null);
     return (
         <Card title={'Restaurant Details'} style={{margin: 20}}>
             <Form layout={'vertical'} wrapperCol={{span: 8}}>
@@ -11,6 +14,13 @@ const Settings = ({}) => {
 
                 <Form.Item label={'Restaurant Address'} required={true}>
                     {/*<Input placeholder={'Enter restaurant name here'}/>*/}
+                    <GooglePlacesAutocomplete
+                        apiKey={`AIzaSyANnaCDkJfngBby06ySakU_kapQLlDmF4o`}
+                        selectProps={{
+                            value: address,
+                            onChange: setAddress,
+                        }}
+                    />
                 </Form.Item>
 
                 <Form.Item>
