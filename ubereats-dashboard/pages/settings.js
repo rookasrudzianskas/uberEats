@@ -5,6 +5,7 @@ import GooglePlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-googl
 const Settings = ({}) => {
     const [address, setAddress] = useState(null);
     const [coordinates, setCoordinates] = useState(null);
+    const [name, setName] = useState(null);
 
     const getAddressLatLng = async (address) => {
         setAddress(address);
@@ -17,7 +18,7 @@ const Settings = ({}) => {
         <Card title={'Restaurant Details'} style={{margin: 20}}>
             <Form layout={'vertical'} wrapperCol={{span: 8}}>
                 <Form.Item label={'Restaurant Name'} required={true}>
-                    <Input placeholder={'Enter restaurant name here'}/>
+                    <Input value={name} onChange={(e) => setName(e.target.value)} placeholder={'Enter restaurant name here'}/>
                 </Form.Item>
 
                 <Form.Item label={'Restaurant Address'} required={true}>
