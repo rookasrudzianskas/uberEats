@@ -4,9 +4,6 @@ import {Card, Table, Tag} from 'antd';
 import {useRouter} from "next/router";
 
 const Orders = ({}) => {
-
-    const router = useRouter();
-
     const renderOrderStatus = (orderStatus) => {
         if(orderStatus === 'Accepted') {
             return <Tag color="green">{orderStatus}</Tag>
@@ -45,13 +42,17 @@ const Orders = ({}) => {
             render: renderOrderStatus
         }
     ];
+    const router = useRouter();
+
     return (
         <Card title={"Orders"} style={{margin: 20}}>
             <Table
                 dataSource={orders}
                 columns={tableColumns}
                 rowKey={'orderID'}
-                // onRow={(orderItem) => router.push(`${orders.orderID}`)}
+                onRow={(orderItem) => ({
+                    onClick: () => router.push(`/${orderItem?.orderID}`)
+                })}
             />
         </Card>
     );
@@ -59,3 +60,4 @@ const Orders = ({}) => {
 
 export default Orders;
 // by Rokas with ❤️
+// router.push(`${orderItem.orderID}`)
