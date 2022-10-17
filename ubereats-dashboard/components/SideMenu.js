@@ -1,6 +1,7 @@
 import React from 'react';
 import {Menu} from 'antd';
 import {useRouter} from "next/router";
+import {Auth} from "aws-amplify";
 
 const SideMenu = ({}) => {
     const router = useRouter();
@@ -25,11 +26,18 @@ const SideMenu = ({}) => {
         {
             key: 'logout',
             label: 'Logout',
+            danger: 'true',
         }
     ];
 
-    const onMenuItemClicked = (menuItem) => {
-        router.push(`/${menuItem?.key}`)
+    const onMenuItemClicked = async (menuItem) => {
+        if (menuItem.key === 'logout') {
+            // logout
+            await Auth.signOut();
+            router.push('/');
+        } else {
+            router.push(`/${menuItem?.key}`)
+        }
     }
 
     return (
