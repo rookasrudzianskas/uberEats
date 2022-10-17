@@ -18,10 +18,6 @@ const Orders = () => {
         return () => subscription.unsubscribe();
     }, []);
 
-    // console.log(orders);
-
-    // console.log(orders);
-
     const renderOrderStatus = (orderStatus) => {
         if(orderStatus === 'Accepted') {
             return <Tag color="green">{orderStatus}</Tag>
