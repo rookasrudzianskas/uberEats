@@ -2,9 +2,11 @@ import React from 'react';
 import {Menu} from 'antd';
 import {useRouter} from "next/router";
 import {Auth} from "aws-amplify";
+import {useRestaurantContext} from "../contexts/RestaurantContext";
 
 const SideMenu = ({}) => {
     const router = useRouter();
+    const {restaurant} = useRestaurantContext();
 
     const menuItems = [
         {
@@ -42,7 +44,10 @@ const SideMenu = ({}) => {
     }
 
     return (
-        <Menu items={menuItems} onClick={onMenuItemClicked} />
+        <>
+            {restaurant && (<h3 style={{marginLeft: 15, marginTop: 8}}>{restaurant?.name || 'Loading...'}</h3>)}
+            <Menu items={menuItems} onClick={onMenuItemClicked} />
+        </>
     );
 };
 
