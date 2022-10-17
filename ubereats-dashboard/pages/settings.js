@@ -1,10 +1,19 @@
 import React from 'react';
+import {Form, Input, Card, Button} from 'antd';
 
 const Settings = ({}) => {
     return (
-        <div>
+        <Card title={'Restaurant Details'} style={{margin: 20}}>
+            <Form layout={'vertical'} wrapperCol={{span: 8}}>
+                <Form.Item label={'Restaurant Name'} required={true}>
+                    <Input placeholder={'Enter restaurant name here'}/>
+                </Form.Item>
 
-        </div>
+                <Form.Item label={'Restaurant Address'} required={true}>
+                    {/*<Input placeholder={'Enter restaurant name here'}/>*/}
+                </Form.Item>
+            </Form>
+        </Card>
     );
 };
 
