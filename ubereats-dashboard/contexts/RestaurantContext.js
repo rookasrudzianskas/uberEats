@@ -11,4 +11,4 @@ const RestaurantContextProvider = ({ children }) => {
     )
 }
 
-export default RestaurantContext;
+export default RestaurantContextProvider;
