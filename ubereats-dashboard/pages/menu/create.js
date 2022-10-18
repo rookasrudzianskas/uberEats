@@ -1,11 +1,20 @@
 import React from 'react';
 import {Form, Input, Button, Card, InputNumber} from 'antd';
+import {DataStore} from "aws-amplify";
+import {Dish} from "../../src/models";
+import {useRestaurantContext} from "../../contexts/RestaurantContext";
 
 const Create = ({}) => {
     const {TextArea} = Input;
+    const {restaurant} = useRestaurantContext();
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const onFinish = ({name, description, price}) => {
+        DataStore.save(new Dish({
+            name: name,
+            description: description,
+            price: price,
+            restaurantID: restaurant.id,
+        }))
     }
 
     const onFinishFailed = (errorInfo) => {
