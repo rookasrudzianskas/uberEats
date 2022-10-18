@@ -3,7 +3,7 @@ import {Button, Card, Descriptions, Divider, List} from "antd";
 import dishes from "../../assets/data/dashboard/dishes.json";
 import {useRouter} from "next/router";
 import {DataStore} from "aws-amplify";
-import {Order, OrderDish, User} from "../../src/models";
+import {Order, OrderDish, OrderStatus, User} from "../../src/models";
 
 const DetailedOrder = ({}) => {
     const { query } = useRouter();
@@ -47,7 +47,7 @@ const DetailedOrder = ({}) => {
         return () => subscription.unsubscribe();
     }, [order?.id]);
 
-    console.log("dishes", dishes)
+    // console.log("dishes", dishes)
 
     // console.log("user", customer);
 
@@ -71,17 +71,21 @@ const DetailedOrder = ({}) => {
                     <h2 style={styles.totalPrice}>${order?.total?.toFixed(2) || 'Loading...'}</h2>
                 </div>
                 <Divider />
-                <div style={styles.buttonsContainer}>
-                    <Button block type={'danger'} size={'large'} style={styles.button}>
-                        Decline Order
+                {order?.status === OrderStatus.NEW && (
+                    <div style={styles.buttonsContainer}>
+                        <Button block type={'danger'} size={'large'} style={styles.button}>
+                            Decline Order
+                        </Button>
+                        <Button block type={'primary'} size={'large'} style={styles.button}>
+                            Accept Order
+                        </Button>
+                    </div>
+                )}
+                {order?.status === OrderStatus.COOKING && (
+                    <Button block color={'green'} type={'primary'} size={'large'}>
+                        Food Is Done
                     </Button>
-                    <Button block type={'primary'} size={'large'} style={styles.button}>
-                        Accept Order
-                    </Button>
-                </div>
-                <Button block color={'green'} type={'primary'} size={'large'}>
-                    Food Is Done
-                </Button>
+                )}
             </Card>
         </div>
     );
