@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, Descriptions, Divider, List} from "antd";
+import {Button, Card, Descriptions, Divider, List, Tag} from "antd";
 import dishes from "../../assets/data/dashboard/dishes.json";
 import {useRouter} from "next/router";
 import {DataStore} from "aws-amplify";
@@ -11,6 +11,15 @@ const DetailedOrder = ({}) => {
     const [order, setOrder] = useState([]);
     const [customer, setCustomer] = useState([]);
     const [dishes, setDishes] = useState([]);
+
+    let color = 'gray';
+    const statusToColor = {
+        [OrderStatus.NEW]: "green",
+        [OrderStatus.COOKING]: "orange",
+        [OrderStatus.READY_FOR_PICKUP]: "red",
+        [OrderStatus.ACCEPTED]: "purple",
+    }
+
 
     const fetchOrder = async () => {
         const order = await DataStore.query(Order, id);
@@ -47,13 +56,10 @@ const DetailedOrder = ({}) => {
         return () => subscription.unsubscribe();
     }, [order?.id]);
 
-    // console.log("dishes", dishes)
-
-    // console.log("user", customer);
-
     return (
         <div>
             <Card title={`Order ${id || 'Loading...'}`} style={{margin: 20}}>
+                <Tag color={statusToColor[order.status]}>{order?.status || 'Loading...'}</Tag>
                 <Descriptions bordered column={{lg: 1, md: 1, sm: 1}}>
                     <Descriptions.Item label={'Customer'}>{customer?.name || 'Loading...' }</Descriptions.Item>
                     <Descriptions.Item label={'Customer Address'}>{customer?.address || 'Loading...'}</Descriptions.Item>
