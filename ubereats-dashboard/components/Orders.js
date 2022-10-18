@@ -23,8 +23,6 @@ const Orders = () => {
         return () => subscription.unsubscribe();
     }, [restaurant]);
 
-    // console.log("orders", orders);
-
     const renderOrderStatus = (orderStatus) => {
         let color = 'gray';
         const statusToColor = {
