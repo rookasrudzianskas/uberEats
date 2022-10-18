@@ -3,13 +3,14 @@ import {Button, Card, Descriptions, Divider, List} from "antd";
 import dishes from "../../assets/data/dashboard/dishes.json";
 import {useRouter} from "next/router";
 import {DataStore} from "aws-amplify";
-import {Order, User} from "../../src/models";
+import {Order, OrderDish, User} from "../../src/models";
 
 const DetailedOrder = ({}) => {
     const { query } = useRouter();
     const id = query?.orderDetails;
     const [order, setOrder] = useState([]);
     const [customer, setCustomer] = useState([]);
+    const [dishes, setDishes] = useState([]);
 
     const fetchOrder = async () => {
         const order = await DataStore.query(Order, id);
@@ -34,6 +35,20 @@ const DetailedOrder = ({}) => {
         return () => subscription.unsubscribe();
     }, [order?.userID]);
 
+    const fetchDishes = async () => {
+        const dishes = await DataStore.query(OrderDish, (c) => c.orderID("eq", order.id));
+        setDishes(dishes);
+    }
+
+    useEffect(() => {
+        if(!order?.id) return;
+        fetchDishes();
+        const subscription = DataStore.observe(OrderDish).subscribe(() => fetchDishes());
+        return () => subscription.unsubscribe();
+    }, [order?.id]);
+
+    console.log("dishes", dishes)
+
     // console.log("user", customer);
 
     return (
@@ -46,8 +61,8 @@ const DetailedOrder = ({}) => {
                 <Divider />
                 <List dataSource={dishes} renderItem={(dishItem) => (
                     <List.Item>
-                        <div style={{fontWeight: 'bold'}}>{dishItem?.name || 'Loading...'} x{dishItem?.quantity || 'Loading...'}</div>
-                        <div>${dishItem?.price || 'Loading...'}</div>
+                        <div style={{fontWeight: 'bold'}}>{dishItem?.Dish?.name || 'Loading...'} x{dishItem?.Dish?.quantity || 'Loading...'}</div>
+                        <div>${dishItem?.Dish?.price || 'Loading...'}</div>
                     </List.Item>
                 )} />
                 <Divider />
