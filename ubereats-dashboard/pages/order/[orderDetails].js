@@ -56,6 +56,26 @@ const DetailedOrder = ({}) => {
         return () => subscription.unsubscribe();
     }, [order?.id]);
 
+    const acceptOrder = async () => {
+        await updateOrderStatus(OrderStatus.ACCEPTED);
+    }
+
+    const declineOrder = async () => {
+        await updateOrderStatus(OrderStatus.DECLINED_BY_RESTAURANT);
+    }
+
+    const readyForPickup = async () => {
+        await updateOrderStatus(OrderStatus.READY_FOR_PICKUP);
+    }
+
+    const updateOrderStatus = async (newStatus) => {
+        const updatedOrder = await DataStore.save(Order.copyOf(order, updated => {
+            updated.status = newStatus;
+        }))
+        setOrder(updatedOrder);
+    }
+
+
     return (
         <div>
             <Card title={`Order ${id || 'Loading...'}`} style={{margin: 20}}>
@@ -79,16 +99,16 @@ const DetailedOrder = ({}) => {
                 <Divider />
                 {order?.status === OrderStatus.NEW && (
                     <div style={styles.buttonsContainer}>
-                        <Button block type={'danger'} size={'large'} style={styles.button}>
+                        <Button block type={'danger'} size={'large'} style={styles.button} onClick={declineOrder}>
                             Decline Order
                         </Button>
-                        <Button block type={'primary'} size={'large'} style={styles.button}>
+                        <Button block type={'primary'} size={'large'} style={styles.button} onClick={acceptOrder}>
                             Accept Order
                         </Button>
                     </div>
                 )}
                 {order?.status === OrderStatus.COOKING && (
-                    <Button block color={'green'} type={'primary'} size={'large'}>
+                    <Button block color={'green'} type={'primary'} size={'large'} onClick={readyForPickup}>
                         Food Is Done
                     </Button>
                 )}
