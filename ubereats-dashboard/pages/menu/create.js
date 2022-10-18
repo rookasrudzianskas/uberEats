@@ -1,12 +1,14 @@
 import React from 'react';
-import {Form, Input, Button, Card, InputNumber} from 'antd';
+import {Form, Input, Button, Card, InputNumber, message} from 'antd';
 import {DataStore} from "aws-amplify";
 import {Dish} from "../../src/models";
 import {useRestaurantContext} from "../../contexts/RestaurantContext";
+import {useRouter} from "next/router";
 
 const Create = ({}) => {
     const {TextArea} = Input;
     const {restaurant} = useRestaurantContext();
+    const router = useRouter();
 
     const onFinish = ({name, description, price}) => {
         DataStore.save(new Dish({
@@ -14,7 +16,9 @@ const Create = ({}) => {
             description: description,
             price: price,
             restaurantID: restaurant.id,
-        }))
+        }));
+        message.success("Dish created successfully");
+        router.push("/menu");
     }
 
     const onFinishFailed = (errorInfo) => {
