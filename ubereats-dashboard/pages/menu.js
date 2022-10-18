@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Table, Button } from 'antd';
+import {Card, Table, Button, Popconfirm} from 'antd';
 import Link from "next/link";
 import {DataStore} from "aws-amplify";
 import {Dish, Order} from "../src/models";
@@ -8,6 +8,12 @@ import {useRestaurantContext} from "../contexts/RestaurantContext";
 const Menu = ({}) => {
     const [dishes, setDishes] = useState([]);
     const {restaurant} = useRestaurantContext();
+
+    const deleteDish = async (dish) => {
+        // console.log("item", item);
+        await DataStore.delete(dish);
+        setDishes(dishes.filter(d => d.id !== dish.id));
+    }
 
     const tableColumns = [
         {
@@ -24,7 +30,11 @@ const Menu = ({}) => {
         {
             title: 'Action',
             key: 'action',
-            render: () => <Button danger>Remove</Button>
+            render: (_, item) => (
+                <Popconfirm placement={'topLeft'} title={'Are you sure you want to delete this Dish?'} onConfirm={() => deleteDish(item)} okText={'Yes'} cancelText={'No'}>
+                    <Button danger>Remove</Button>
+                </Popconfirm>
+            )
         }
     ];
 
